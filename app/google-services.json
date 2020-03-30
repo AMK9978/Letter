@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "833160342022",
+    "firebase_url": "https://my-project-1526930045350.firebaseio.com",
+    "project_id": "my-project-1526930045350",
+    "storage_bucket": "my-project-1526930045350.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833160342022:android:f8b03ebb55ca799190f187",
+        "android_client_info": {
+          "package_name": "com.amk.bamboo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833160342022-39arb7m5f441afs0scokaddkfjd0s01p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTJWIGNWqsrnOxqV2Bd8gWNHSiFXgAUhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833160342022-39arb7m5f441afs0scokaddkfjd0s01p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833160342022:android:fe56894eda7c4f3f",
+        "android_client_info": {
+          "package_name": "com.amk.morris"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833160342022-39arb7m5f441afs0scokaddkfjd0s01p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTJWIGNWqsrnOxqV2Bd8gWNHSiFXgAUhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833160342022-39arb7m5f441afs0scokaddkfjd0s01p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833160342022:android:afe5e3a6765cefa190f187",
+        "android_client_info": {
+          "package_name": "com.fidea.letter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833160342022-39arb7m5f441afs0scokaddkfjd0s01p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTJWIGNWqsrnOxqV2Bd8gWNHSiFXgAUhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833160342022-39arb7m5f441afs0scokaddkfjd0s01p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
