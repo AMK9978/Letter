@@ -8,10 +8,10 @@ import com.fidea.letter.repositories.ItemRepository
 
 class MainViewModel : ViewModel() {
     // TODO: Implement the ViewModel
-    var contents : MutableLiveData<ArrayList<Item>>? = null
-    var repo : ItemRepository? = null
+    var contents: MutableLiveData<ArrayList<Item>>? = null
+    var repo: ItemRepository? = null
 
-    fun init(){
+    fun init() {
         if (repo != null) {
             return
         }

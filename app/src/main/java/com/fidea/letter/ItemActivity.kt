@@ -30,12 +30,14 @@ class ItemActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
             Objects.requireNonNull(supportActionBar)?.setDisplayHomeAsUpEnabled(true)
             movieTitle.text = item.title
+            titleTxt.text = item.title
+            description.text = item.description
+            Log.i("TAG", movieTitle.text.toString() + " " + description.text.toString())
             supportActionBar!!.setDisplayShowHomeEnabled(true)
             toolbar.navigationIcon = resources.getDrawable(R.drawable.ic_arrow_back_white_24dp)
             toolbar.setNavigationOnClickListener { onBackPressed() }
             dialog = SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-            Glide.with(this).load(item.imageUrl).placeholder(R.drawable.placeholder)
-                .into(app_bar_image)
+            Glide.with(this).load(item.imageUrl).placeholder(R.drawable.placeholder).into(app_bar_image)
         }
 
         like.setOnClickListener {

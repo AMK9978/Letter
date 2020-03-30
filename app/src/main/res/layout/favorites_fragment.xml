@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layoutDirection="rtl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context=".ui.main.FavoritesFragment">
 
 
@@ -12,7 +12,7 @@
         android:id="@+id/favoritesRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layoutDirection="rtl"
+        android:layoutDirection="ltr"
         android:padding="8dp" />
 
 </LinearLayout>
