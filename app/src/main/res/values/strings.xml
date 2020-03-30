@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">نامه</string>
+    <string name="error">مشکل!</string>
+    <string name="ok">باشه</string>
+    <string name="general_error">خطایی در دریافت اطلاعات رخ داده، لطفا بعدا تلاش کنید!</string>
+    <string name="wait">لطفا صبر کنید</string>
+</resources>
