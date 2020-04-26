@@ -1,7 +1,7 @@
 <vector android:height="198dp" android:viewportHeight="198.362"
     android:viewportWidth="206.38" android:width="207dp"
     xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillAlpha="0.96" android:fillColor="#11cfc5"
+        <path android:fillAlpha="0.96" android:fillColor="#ffab00"
         android:pathData="M23,163.5s-51.74,-35.75 0,-84.64S134.83,1.65 172.32,0.02s43.39,88.41 20.88,147.69C170.69,206.89 93.89,216.87 23,163.5Z" android:strokeAlpha="0.96"/>
     <path android:fillAlpha="0.96" android:fillColor="#fff"
         android:pathData="M118.83,186.26l-0.28,2.33a1.28,1.28 0,0 1,-1.55 1.13c-3.96,-0.71 -15.9,-2.33 -27.49,-0.35 -14.13,2.47 -21.41,0.35 -21.41,0.35s-5.16,-2.4 -7.21,-3.53h57.94Z" android:strokeAlpha="0.96"/>
@@ -35,7 +35,7 @@
         android:pathData="M94.23,83.48a3.23,3.23 0,0 0,-0.5 -0.15c0.19,-0.27 -0.37,-0.9 -0.22,-1.19 0.9,0.65 2.54,1.66 3.44,2.31a1.9,1.9 0,0 1,-1.43 -0.24A13.7,13.7 0,0 0,94.23 83.48Z" android:strokeAlpha="0.96"/>
     <path android:fillAlpha="0.96" android:fillColor="#ff9877"
         android:pathData="M93.36,83.71a1.9,1.9 0,0 0,-0.01 -0.37c0.27,0.08 0.65,-0.43 0.93,-0.39 -0.3,0.75 -0.69,2.07 -0.99,2.82a1.16,1.16 0,0 1,-0.19 -1.03A8.06,8.06 0,0 0,93.36 83.71Z" android:strokeAlpha="0.96"/>
-    <path android:fillAlpha="0.96" android:fillColor="#ff8f00"
+    <path android:fillAlpha="0.96" android:fillColor="#6a1c45"
         android:pathData="M53.18,89.29a10.97,10.97 0,0 1,-3.99 11.53c-1.66,1.25 -3.94,2.52 -3.74,4.53 0.15,1.48 1.66,2.46 3.08,3.08A23.17,23.17 0,0 0,59.19 110.27a6.08,6.08 0,0 0,4.08 -1.45,4.83 4.83,0 0,0 0.86,-4.35c-0.31,-1.5 -0.96,-2.93 -1.17,-4.45 -0.34,-2.5 0.55,-4.98 1.45,-7.36 1.61,-4.26 3.08,-12.35 -3.67,-13.41a10.68,10.68 0,0 0,-6.97 1.92C50.58,83.32 52.36,86.42 53.18,89.29Z" android:strokeAlpha="0.96"/>
     <path android:fillAlpha="0.96" android:fillColor="#ffab91"
         android:pathData="M50.74,79.62l-16.1,9.6L45.94,105.52l1.76,-1.14 -6.99,-14.54L53.01,84.12Z" android:strokeAlpha="0.96"/>
