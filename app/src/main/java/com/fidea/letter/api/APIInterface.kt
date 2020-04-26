@@ -1,6 +1,7 @@
 package com.fidea.letter.api
 
 import com.fidea.letter.models.Item
+import com.fidea.letter.models.Token
 import com.fidea.letter.models.User
 import retrofit2.Call
 import retrofit2.http.Field
@@ -14,28 +15,27 @@ interface APIInterface {
     @POST("signUp")
     @FormUrlEncoded
     fun signUp(
-        @Field("name") name: String?, @Field("password") password: String?,
-        @Field("email") email: String?,
-        @Field("mood") mood: String?
+        @Field("username") username: String?, @Field("password") password: String?,
+        @Field("email") email: String?
     ): Call<User>?
 
     @POST("login")
     @FormUrlEncoded
-    fun signUp(
-        @Field("name") name: String?, @Field("password") password: String?
+    fun login(
+        @Field("username") name: String?,
+        @Field("password") password: String?
     ): Call<User>?
+
+    @POST("api/token/")
+    @FormUrlEncoded
+    fun getToken(
+        @Field("username") username: String?, @Field("password") password: String?
+    ): Call<Token>?
 
 
     @POST("like")
     @FormUrlEncoded
     fun like(
-        @Field("id") id: Int?
-    ): Call<String>?
-
-
-    @POST("visit")
-    @FormUrlEncoded
-    fun visit(
         @Field("id") id: Int?
     ): Call<String>?
 
@@ -45,9 +45,12 @@ interface APIInterface {
         @Field("id") id: Int?
     ): Call<String>?
 
-
     @GET("content")
     fun getContent(
+    ): Call<ArrayList<Item>>?
+
+    @GET("favorites")
+    fun getFavorites(
     ): Call<ArrayList<Item>>?
 
 

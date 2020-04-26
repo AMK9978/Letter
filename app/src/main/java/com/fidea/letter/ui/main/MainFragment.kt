@@ -82,7 +82,7 @@ class MainFragment : Fragment() {
 //                    items = response.body()!!
                 } else {
                     getErrorDialog()
-                    Log.i("TAG", "Error in onResponse of Products " + response.code())
+                    Log.i("TAG", "Error in onResponse of items " + response.code())
                 }
             }
 

@@ -12,7 +12,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 class APIClient {
 
     companion object {
-        private val BASE_URL = "https://chandmahame.com/api/v1/"
+        private val BASE_URL = "https://chandmahame.com/"
         private val REWRITE_CACHE_CONTROL_INTERCEPTOR =
             Interceptor { chain: Interceptor.Chain ->
                 val originalResponse = chain.proceed(chain.request())

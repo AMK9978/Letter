@@ -43,8 +43,8 @@ class ItemActivity : AppCompatActivity() {
         like.setOnClickListener {
             like()
         }
-        visit.setOnClickListener {
-            visit()
+        seen.setOnClickListener {
+            seen()
         }
 
     }
@@ -82,10 +82,10 @@ class ItemActivity : AppCompatActivity() {
         })
     }
 
-    private fun visit() {
+    private fun seen() {
         val apiInterface: APIInterface =
             APIClient.getRetrofit(this)!!.create(APIInterface::class.java)
-        apiInterface.visit(item.id)?.enqueue(object : Callback<String?> {
+        apiInterface.setAsSeen(item.id)?.enqueue(object : Callback<String?> {
             override fun onResponse(
                 call: Call<String?>,
                 response: Response<String?>
