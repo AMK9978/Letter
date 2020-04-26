@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/colorPrimary"
-        android:theme="@style/ToolbarTheme"
         app:menu="@menu/simple_menu"
         app:titleTextColor="@color/white">
 
@@ -24,7 +23,6 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/iran_sans_bold"
-            android:text="khhjhj"
             android:textColor="@color/white" />
 
     </androidx.appcompat.widget.Toolbar>

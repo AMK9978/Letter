@@ -4,4 +4,7 @@
     <string name="ok">باشه</string>
     <string name="general_error">خطایی در دریافت اطلاعات رخ داده، لطفا بعدا تلاش کنید!</string>
     <string name="wait">لطفا صبر کنید</string>
+
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
 </resources>

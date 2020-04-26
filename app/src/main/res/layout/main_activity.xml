@@ -16,7 +16,6 @@
         android:layout_gravity="center_vertical"
         android:background="@color/colorPrimary"
         android:gravity="center_vertical"
-        android:theme="@style/ToolbarTheme"
         app:menu="@menu/main_more"
         android:layoutDirection="rtl"
         app:titleTextColor="@color/white">

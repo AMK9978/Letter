@@ -14,18 +14,18 @@ import com.fidea.letter.R
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.User
-import kotlinx.android.synthetic.main.login_fragment.*
-import kotlinx.android.synthetic.main.login_fragment.view.*
+import kotlinx.android.synthetic.main.sign_up_fragment.*
+import kotlinx.android.synthetic.main.sign_up_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginFragment : Fragment() {
+class SignUpFragment : Fragment() {
     private var loginViewModel: LoginViewModel? = null
 
     companion object {
-        fun newInstance() = LoginFragment()
+        fun newInstance() = SignUpFragment()
     }
 
     override fun onCreateView(
@@ -37,20 +37,26 @@ class LoginFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        val view = inflater.inflate(R.layout.login_fragment, container, false)
-        view.gotoRegister.setOnClickListener {
-            onSignUpClick()
+        val view = inflater.inflate(R.layout.sign_up_fragment, container, false)
+
+        view.image_gotoLogin.setOnClickListener {
+            onLoginClick()
         }
-        view.image_gotoRegister.setOnClickListener {
-            onSignUpClick()
+        view.gotoLogin.setOnClickListener {
+            onLoginClick()
         }
 
-        view.cirLoginButton.setOnClickListener {
-            if (checkFields()) {
-                gotoHome()
-            }
+        view.cirRegisterButton.setOnClickListener {
+            signUp()
         }
+
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        // TODO: Use the ViewModel
     }
 
     private fun checkFields(): Boolean {
@@ -65,10 +71,13 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun login() {
+    private fun signUp() {
         val apiInterface: APIInterface =
             context?.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
-        apiInterface.login(editTextEmail.text.toString(), editTextPassword.text.toString())
+        apiInterface.signUp(
+            editTextName.text.toString(), editTextPassword.text.toString(),
+            editTextEmail.text.toString()
+        )
             ?.enqueue(object : Callback<User> {
                 override fun onResponse(
                     call: Call<User>,
@@ -99,17 +108,10 @@ class LoginFragment : Fragment() {
         activity?.finish()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
-
-    private fun onSignUpClick() {
+    fun onLoginClick() {
         activity!!.supportFragmentManager.beginTransaction()
-            .replace(R.id.container, SignUpFragment.newInstance())
+            .replace(R.id.container, LoginFragment.newInstance())
             .commitNow()
     }
 }

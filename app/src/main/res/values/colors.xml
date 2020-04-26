@@ -4,6 +4,12 @@
     <color name="colorPrimaryDark">#c67c00</color>
     <color name="colorAccent">#ffdd4b</color>
 
+    <color name="themeColor">#11CFC5</color>
+
+    <!--normal colors-->
+    <color name="darkTextColor">#020000</color>
+    <color name="primaryTextColor">#11CFC5</color>
+
     <color name="theme_red">#d73821</color>
     <color name="theme_orange">#ee8538</color>
     <color name="theme_pink">#ffd19e</color>
