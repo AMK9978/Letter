@@ -12,7 +12,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 class APIClient {
 
     companion object {
-        private val BASE_URL = "https://chandmahame.com/"
+        private val BASE_URL = "http://127.0.0.1:8000/api/"
         private val REWRITE_CACHE_CONTROL_INTERCEPTOR =
             Interceptor { chain: Interceptor.Chain ->
                 val originalResponse = chain.proceed(chain.request())
@@ -46,7 +46,7 @@ class APIClient {
                     .setLenient()
                     .create()
                 token = context.getSharedPreferences("pref", Context.MODE_PRIVATE)
-                    .getString("jwt", "nothing")
+                    .getString("token", "nothing")
                 val cacheSize = 5 * 1024 * 1024L
                 cache = Cache(context.cacheDir, cacheSize)
                 return Retrofit.Builder().client(client)

@@ -1,5 +1,7 @@
 package com.fidea.letter.ui.auth
 
+import android.annotation.SuppressLint
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,7 +15,7 @@ import com.fidea.letter.MainActivity
 import com.fidea.letter.R
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
-import com.fidea.letter.models.User
+import com.fidea.letter.models.Token
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.login_fragment.view.*
 import retrofit2.Call
@@ -69,13 +71,14 @@ class LoginFragment : Fragment() {
         val apiInterface: APIInterface =
             context?.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
         apiInterface.login(editTextEmail.text.toString(), editTextPassword.text.toString())
-            ?.enqueue(object : Callback<User> {
+            ?.enqueue(object : Callback<Token> {
                 override fun onResponse(
-                    call: Call<User>,
-                    response: Response<User>
+                    call: Call<Token>,
+                    response: Response<Token>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
-                        val user = response.body()!!
+                        val token = response.body()!!
+                        storeToken(token)
                         gotoHome()
                     } else {
                         Log.i("TAG", "Error in onResponse of Products " + response.code())
@@ -83,7 +86,7 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onFailure(
-                    call: Call<User>,
+                    call: Call<Token>,
                     t: Throwable
                 ) {
                     Log.i(
@@ -91,6 +94,14 @@ class LoginFragment : Fragment() {
                     )
                 }
             })
+    }
+
+    @SuppressLint("ApplySharedPref")
+    private fun storeToken(token: Token) {
+        context!!.getSharedPreferences("pref", MODE_PRIVATE).edit().putString("token", token.token)
+            .commit()
+        context!!.getSharedPreferences("pref", MODE_PRIVATE).edit()
+            .putString("refresh", token.refresh).commit()
     }
 
     private fun gotoHome() {

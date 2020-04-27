@@ -52,10 +52,6 @@ class ItemActivity : AppCompatActivity() {
 
     private fun like() {
         val view = findViewById<View>(android.R.id.content)
-        Snackbar.make(view, "با موفقیت به علاقمندی هایتان افزوده شد", Snackbar.LENGTH_LONG)
-            .setAction("برگشت") {
-
-            }.setActionTextColor(resources.getColor(R.color.colorAccent)).show()
         val apiInterface: APIInterface =
             APIClient.getRetrofit(this)!!.create(APIInterface::class.java)
         apiInterface.like(item.id)?.enqueue(object : Callback<String?> {
@@ -65,6 +61,10 @@ class ItemActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     dialog.dismiss()
+                    Snackbar.make(view, "با موفقیت به علاقمندی هایتان افزوده شد", Snackbar.LENGTH_LONG)
+                        .setAction("برگشت") {
+
+                        }.setActionTextColor(resources.getColor(R.color.colorAccent)).show()
 //                    items = response.body()!!
                 } else {
                     Log.i("TAG", "Error in onResponse of Products " + response.code())

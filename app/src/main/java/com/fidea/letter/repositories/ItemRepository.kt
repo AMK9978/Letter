@@ -1,23 +1,30 @@
 package com.fidea.letter.repositories
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.fidea.letter.api.APIClient
+import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.Item
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ItemRepository {
+class ItemRepository (val context: Context){
 
     private var items: ArrayList<Item>? = null
-
+    private var favorites: ArrayList<Item>? = null
     companion object {
         private var repo: ItemRepository? = null
 
-        fun getRepo(): ItemRepository? {
+        fun getRepo(context: Context): ItemRepository? {
             if (repo == null) {
-                return ItemRepository()
+                return ItemRepository(context)
             }
             return repo
         }
     }
+
 
     fun getContents(): MutableLiveData<ArrayList<Item>> {
         setContents()
@@ -65,30 +72,56 @@ class ItemRepository {
 
     }
 
-//
-//    private fun getItems() {
-//        val apiInterface: APIInterface =
-//            context?.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
-//        apiInterface.getContent()?.enqueue(object : Callback<java.util.ArrayList<Item>?> {
-//            override fun onResponse(
-//                call: Call<java.util.ArrayList<Item>?>,
-//                response: Response<java.util.ArrayList<Item>?>
-//            ) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    items = response.body()!!
-//                } else {
-//                    Log.i("TAG", "Error in onResponse of Products " + response.code())
-//                }
-//            }
-//
-//            override fun onFailure(
-//                call: Call<java.util.ArrayList<Item>?>,
-//                t: Throwable
-//            ) {
-//                Log.i(
-//                    "TAGd", t.message
-//                )
-//            }
-//        })
-//    }
+
+    private fun getItems() {
+        val apiInterface: APIInterface =
+            context.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
+        apiInterface.getContent()?.enqueue(object : Callback<java.util.ArrayList<Item>?> {
+            override fun onResponse(
+                call: Call<java.util.ArrayList<Item>?>,
+                response: Response<java.util.ArrayList<Item>?>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    items = response.body()!!
+                } else {
+                    Log.i("TAG", "Error in onResponse of items " + response.code())
+                }
+            }
+
+            override fun onFailure(
+                call: Call<java.util.ArrayList<Item>?>,
+                t: Throwable
+            ) {
+                Log.i(
+                    "TAGd", t.message
+                )
+            }
+        })
+    }
+
+    private fun getFavoriteItems() {
+        val apiInterface: APIInterface =
+            context.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
+        apiInterface.getFavorites()?.enqueue(object : Callback<java.util.ArrayList<Item>?> {
+            override fun onResponse(
+                call: Call<java.util.ArrayList<Item>?>,
+                response: Response<java.util.ArrayList<Item>?>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    favorites = response.body()!!
+                } else {
+                    Log.i("TAG", "Error in onResponse of items " + response.code())
+                }
+            }
+
+            override fun onFailure(
+                call: Call<java.util.ArrayList<Item>?>,
+                t: Throwable
+            ) {
+                Log.i(
+                    "TAGd", t.message
+                )
+            }
+        })
+    }
 }

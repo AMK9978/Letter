@@ -19,16 +19,9 @@ interface APIInterface {
         @Field("email") email: String?
     ): Call<User>?
 
-    @POST("login")
+    @POST("token")
     @FormUrlEncoded
     fun login(
-        @Field("username") name: String?,
-        @Field("password") password: String?
-    ): Call<User>?
-
-    @POST("api/token/")
-    @FormUrlEncoded
-    fun getToken(
         @Field("username") username: String?, @Field("password") password: String?
     ): Call<Token>?
 
