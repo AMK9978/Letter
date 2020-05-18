@@ -20,26 +20,46 @@ import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.Item
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
+    private var loading: Boolean = false
+    private var items: ArrayList<Item>? = null
     private var adapter: ItemsAdapter? = null
     private var mainViewModel: MainViewModel? = null
     private lateinit var dialog: SweetAlertDialog
+
+    private var pastY = 0
+
+
+    companion object {
+        fun newInstance() = MainFragment()
+    }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        val view = inflater.inflate(R.layout.main_fragment, container, false)
+        val contentRecycler = view.contentRecycler
+        contentRecycler.viewTreeObserver.addOnScrollChangedListener {
+            if (contentRecycler.childCount > 0 && loading) {
+                Log.i("TAG", "Is true")
+                if (contentRecycler.getChildAt(0).bottom <= (contentRecycler.height +
+                            contentRecycler.scrollY)
+                ) {
+                    Log.i("TAG", "And now")
+                    loading = false
+                    loadItems()
+                }
+            }
+        }
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -47,16 +67,12 @@ class MainFragment : Fragment() {
         // TODO: Use the ViewModel
         dialog = SweetAlertDialog(activity, WARNING_TYPE)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainViewModel!!.init()
-        mainViewModel?.contents?.observe(viewLifecycleOwner, Observer {
-            adapter?.notifyDataSetChanged()
-        })
-        initRecycler()
+        getItems()
     }
 
     @SuppressLint("CheckResult")
     private fun initRecycler() {
-        adapter = context?.let { ItemsAdapter(it, mainViewModel?.contents?.value!!) }
+        adapter = ItemsAdapter(context!!, mainViewModel?.contents?.value!!)
         contentRecycler.adapter = adapter
         contentRecycler.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -66,38 +82,10 @@ class MainFragment : Fragment() {
             intent.putExtra("item", it)
             startActivity(intent)
         }
-    }
-
-    private fun getItems() {
-        val apiInterface: APIInterface =
-            context?.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
-        getWaitingDialog()
-        apiInterface.getContent()?.enqueue(object : Callback<ArrayList<Item>?> {
-            override fun onResponse(
-                call: Call<ArrayList<Item>?>,
-                response: Response<ArrayList<Item>?>
-            ) {
-                if (response.isSuccessful && response.body() != null) {
-                    dialog.dismiss()
-//                    items = response.body()!!
-                } else {
-                    getErrorDialog()
-                    Log.i("TAG", "Error in onResponse of items " + response.code())
-                }
-            }
-
-            override fun onFailure(
-                call: Call<ArrayList<Item>?>,
-                t: Throwable
-            ) {
-                Log.i(
-                    "TAGd", t.message
-                )
-                getErrorDialog()
-            }
+        mainViewModel?.contents?.observe(viewLifecycleOwner, Observer {
+            adapter?.notifyDataSetChanged()
         })
     }
-
 
     private fun getErrorDialog() {
         if (dialog.isShowing) dialog.dismiss()
@@ -118,6 +106,66 @@ class MainFragment : Fragment() {
         if (!activity!!.isFinishing) dialog.show()
         dialog.confirmText = resources.getString(R.string.ok)
         dialog.setConfirmClickListener { dialog.dismiss() }
+    }
+
+
+    private fun getItems() {
+        val apiInterface: APIInterface =
+            context.let { it?.let { it1 -> APIClient.getRetrofit(it1) } }!!.create(APIInterface::class.java)
+        apiInterface.getContent(mainViewModel!!.page++)
+            ?.enqueue(object : Callback<java.util.ArrayList<Item>?> {
+                override fun onResponse(
+                    call: Call<java.util.ArrayList<Item>?>,
+                    response: Response<java.util.ArrayList<Item>?>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        mainViewModel?.contents?.value = response.body()
+                        initRecycler()
+                        loading = true
+                    } else {
+                        Log.i("TAG", "Error in onResponse of items " + response.code())
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<java.util.ArrayList<Item>?>,
+                    t: Throwable
+                ) {
+                    Log.i(
+                        "TAGd", t.message
+                    )
+                }
+            })
+    }
+
+    private fun loadItems() {
+        val apiInterface: APIInterface =
+            context.let { it?.let { it1 -> APIClient.getRetrofit(it1) } }!!.create(APIInterface::class.java)
+        apiInterface.getContent(mainViewModel!!.page++)
+            ?.enqueue(object : Callback<java.util.ArrayList<Item>?> {
+                override fun onResponse(
+                    call: Call<java.util.ArrayList<Item>?>,
+                    response: Response<java.util.ArrayList<Item>?>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        mainViewModel?.contents?.value?.addAll(response.body()!!)
+                        Log.i("TAG", "HERE " + response.body()!!.size)
+                        adapter?.notifyDataSetChanged()
+                        loading = true
+                    } else {
+                        Log.i("TAG", "Error in onResponse of items here " + response.code())
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<java.util.ArrayList<Item>?>,
+                    t: Throwable
+                ) {
+                    Log.i(
+                        "TAGd", t.message
+                    )
+                }
+            })
     }
 
 }

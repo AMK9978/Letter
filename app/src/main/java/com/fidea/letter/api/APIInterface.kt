@@ -2,24 +2,20 @@ package com.fidea.letter.api
 
 import com.fidea.letter.models.Item
 import com.fidea.letter.models.Token
-import com.fidea.letter.models.User
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface APIInterface {
 
     //AUTHENTICATION//////////////////////
-    @POST("signUp")
+    @POST("signup")
     @FormUrlEncoded
     fun signUp(
         @Field("username") username: String?, @Field("password") password: String?,
         @Field("email") email: String?
-    ): Call<User>?
+    ): Call<Temp>?
 
-    @POST("token")
+    @POST("login")
     @FormUrlEncoded
     fun login(
         @Field("username") username: String?, @Field("password") password: String?
@@ -39,8 +35,7 @@ interface APIInterface {
     ): Call<String>?
 
     @GET("content")
-    fun getContent(
-    ): Call<ArrayList<Item>>?
+    fun getContent(@Query("page") pageNumber: Int): Call<ArrayList<Item>>?
 
     @GET("favorites")
     fun getFavorites(

@@ -10,9 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class APIClient {
-
     companion object {
-        private val BASE_URL = "http://127.0.0.1:8000/api/"
+        private const val BASE_URL = "http://amkhastam.pythonanywhere.com/api/"
         private val REWRITE_CACHE_CONTROL_INTERCEPTOR =
             Interceptor { chain: Interceptor.Chain ->
                 val originalResponse = chain.proceed(chain.request())
@@ -46,7 +45,7 @@ class APIClient {
                     .setLenient()
                     .create()
                 token = context.getSharedPreferences("pref", Context.MODE_PRIVATE)
-                    .getString("token", "nothing")
+                    .getString("token", "")
                 val cacheSize = 5 * 1024 * 1024L
                 cache = Cache(context.cacheDir, cacheSize)
                 return Retrofit.Builder().client(client)

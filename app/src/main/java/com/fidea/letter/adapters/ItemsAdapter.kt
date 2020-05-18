@@ -45,25 +45,7 @@ class ItemsAdapter(
         holder.itemView.title.text = item.title
         holder.itemView.description.text = item.description
         Glide.with(context).load(item.imageUrl).placeholder(R.drawable.placeholder)
-            .listener(object : RequestListener<Drawable?> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any,
-                    target: Target<Drawable?>,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: Drawable?, model: Any, target: Target<Drawable?>,
-                    dataSource: DataSource, isFirstResource: Boolean
-                ): Boolean {
-                    holder.itemView.shimmer.stopShimmer()
-                    holder.itemView.shimmer.hideShimmer()
-                    return false
-                }
-            }).centerCrop().into(holder.itemView.avatar)
+           .centerCrop().into(holder.itemView.avatar)
         holder.itemView.setOnClickListener {
             clickSubject.onNext(item)
         }

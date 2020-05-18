@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
 
         view.cirLoginButton.setOnClickListener {
             if (checkFields()) {
-                gotoHome()
+                login()
             }
         }
         return view
@@ -81,7 +81,8 @@ class LoginFragment : Fragment() {
                         storeToken(token)
                         gotoHome()
                     } else {
-                        Log.i("TAG", "Error in onResponse of Products " + response.code())
+                        Log.i("TAG", "Error in onResponse of Products " + response.code() +
+                        " " + response.message() + " " + response.errorBody())
                     }
                 }
 
@@ -98,7 +99,7 @@ class LoginFragment : Fragment() {
 
     @SuppressLint("ApplySharedPref")
     private fun storeToken(token: Token) {
-        context!!.getSharedPreferences("pref", MODE_PRIVATE).edit().putString("token", token.token)
+        context!!.getSharedPreferences("pref", MODE_PRIVATE).edit().putString("token", token.access)
             .commit()
         context!!.getSharedPreferences("pref", MODE_PRIVATE).edit()
             .putString("refresh", token.refresh).commit()

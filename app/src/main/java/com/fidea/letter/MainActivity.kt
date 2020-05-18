@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun favorites() {
+//        val intent = Intent(this, FavoritesActivity::class.java )
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, FavoritesFragment.newInstance())
             .commitNow()
-        Log.i("TAG", "Nemire?")
     }
 
 
@@ -54,9 +54,10 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
+            Log.i("TAG", "HERE WE GO AGAIN!")
         } else {
             super.onBackPressed()
-            finish()
+//            finish()
         }
     }
 

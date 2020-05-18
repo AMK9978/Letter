@@ -4,6 +4,8 @@
     <string name="ok">باشه</string>
     <string name="general_error">خطایی در دریافت اطلاعات رخ داده، لطفا بعدا تلاش کنید!</string>
     <string name="wait">لطفا صبر کنید</string>
+    <string name="confirm_email">ثبت نام شما با موفقیت انجام شد! لطفا ایمیلی که دریافت میکنید را تایید کنید و سپس ورود کنید</string>
+    <string name="sign_up_error">این ایمیل قبلا ذخیره شده است،‌ لطفا ورود کنید</string>
 
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
