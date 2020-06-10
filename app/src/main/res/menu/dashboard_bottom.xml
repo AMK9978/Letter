@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home_green_24dp"
+        android:title="خانه"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/boards"
+        android:checked="true"
+        android:icon="@drawable/ic_dashboard_green_24dp"
+        android:title="برد"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/library"
+        android:checked="true"
+        android:icon="@drawable/ic_library_books_green_24dp"
+        android:title="کتابخانه"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/personal"
+        android:icon="@drawable/ic_person_green_24dp"
+        android:title="نامه من"
+        app:showAsAction="always|withText" />
+
+</menu>

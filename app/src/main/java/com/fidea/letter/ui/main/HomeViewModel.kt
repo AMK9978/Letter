@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fidea.letter.models.Item
 
-class MainViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
     // TODO: Implement the ViewModel
     var contents: MutableLiveData<ArrayList<Item>>? = MutableLiveData()
 

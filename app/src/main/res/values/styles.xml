@@ -14,6 +14,18 @@
         <item name="android:listDivider">@color/white</item>
     </style>
 
+    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+
+        <item name="android:background">@color/cherry</item>
+        <item name="colorPrimary">@color/cherry</item>
+        <item name="colorOnPrimary">@color/cherry</item>
+        <item name="android:textColor">@color/cherry</item>
+        <item name="android:color">@color/cherry</item>
+        <item name="android:solidColor">@color/cherry</item>
+        <item name="android:colorActivatedHighlight">@color/cherry</item>
+        <item name="android:fontFamily">@font/iran_sans_fanum</item>
+    </style>
 
 
     <style name="AppTheme.NoActionBar">

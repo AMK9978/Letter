@@ -29,7 +29,7 @@ class FavoritesFragment : Fragment() {
     private var favorites: ArrayList<Item>? = null
     private lateinit var dialog: SweetAlertDialog
     private var adapter: ItemsAdapter? = null
-    private var mainViewModel: MainViewModel? = null
+    private var homeViewModel: HomeViewModel? = null
     private lateinit var viewModel: FavoritesViewModel
 
 
@@ -49,14 +49,14 @@ class FavoritesFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
         // TODO: Use the ViewModel
         dialog = SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         getFavoriteItems()
     }
 
 
     @SuppressLint("CheckResult")
     private fun initRecycler() {
-        adapter = context?.let { ItemsAdapter(it, mainViewModel?.contents?.value!!) }
+        adapter = context?.let { ItemsAdapter(it, homeViewModel?.contents?.value!!) }
         contentRecycler.adapter = adapter
         contentRecycler.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -66,7 +66,7 @@ class FavoritesFragment : Fragment() {
             intent.putExtra("item", it)
             startActivity(intent)
         }
-        mainViewModel?.contents?.observe(viewLifecycleOwner, Observer {
+        homeViewModel?.contents?.observe(viewLifecycleOwner, Observer {
             adapter?.notifyDataSetChanged()
         })
     }

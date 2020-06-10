@@ -14,6 +14,7 @@ class AuthActivity : AppCompatActivity() {
         setContentView(R.layout.auth_activity)
         val token = getSharedPreferences("pref", Context.MODE_PRIVATE).getString("token","nothing")
         if (token != "nothing"){
+            Log.i("TAG", token)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
