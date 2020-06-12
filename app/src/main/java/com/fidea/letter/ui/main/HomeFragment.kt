@@ -1,6 +1,7 @@
 package com.fidea.letter.ui.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,31 +10,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import cn.pedant.SweetAlert.SweetAlertDialog
-import cn.pedant.SweetAlert.SweetAlertDialog.WARNING_TYPE
+import androidx.recyclerview.widget.RecyclerView
 import com.fidea.letter.ItemActivity
 import com.fidea.letter.R
 import com.fidea.letter.adapters.ItemsAdapter
-import com.fidea.letter.api.APIClient
-import com.fidea.letter.api.APIInterface
-import com.fidea.letter.models.Item
-import kotlinx.android.synthetic.main.main_fragment.*
+import com.github.ybq.android.spinkit.SpinKitView
 import kotlinx.android.synthetic.main.main_fragment.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.io.File
 
 class HomeFragment : Fragment() {
 
+    private var dy: Int = 0
+    private var pastY: Int = 0
     private var loading: Boolean = false
-    private var items: ArrayList<Item>? = null
+    private lateinit var contentRecycler: RecyclerView
+    private lateinit var spin: SpinKitView
     private var adapter: ItemsAdapter? = null
-    private var homeViewModel: HomeViewModel? = null
-    private lateinit var dialog: SweetAlertDialog
-
-    private var pastY = 0
+    private lateinit var itemsViewModel: ItemsViewModel
 
 
     companion object {
@@ -46,105 +40,59 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.main_fragment, container, false)
-        val contentRecycler = view.contentRecycler
-        contentRecycler.viewTreeObserver.addOnScrollChangedListener {
-            if (contentRecycler.childCount > 0 && loading) {
-                Log.i("TAG", "Is true")
-                if (contentRecycler.getChildAt(0).bottom <= (contentRecycler.height +
-                            contentRecycler.scrollY)
-                ) {
+        contentRecycler = view.contentRecycler
+        spin = view.spin_kit
+        itemsViewModel = ItemsViewModel(getToken(), getCacheDir())
+        adapter =
+            ItemsAdapter(
+                context!!,
+                arrayListOf()
+            )
+        contentRecycler.adapter = adapter
+        contentRecycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        initRecycler()
+        contentRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     Log.i("TAG", "And now")
+                    spin.visibility = View.VISIBLE
                     loading = false
-                    loadItems()
+                    itemsViewModel.getNewItems()
                 }
             }
-        }
+        })
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
-        dialog = SweetAlertDialog(activity, WARNING_TYPE)
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        getItems()
+    private fun getToken(): String {
+        return context!!.getSharedPreferences("pref", Context.MODE_PRIVATE)
+            .getString("token", "").toString()
+    }
+
+    private fun getCacheDir(): File {
+        return context!!.cacheDir
     }
 
     @SuppressLint("CheckResult")
     private fun initRecycler() {
-        adapter = ItemsAdapter(context!!, homeViewModel?.contents?.value!!)
-        contentRecycler.adapter = adapter
-        contentRecycler.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        itemsViewModel.items.observe(viewLifecycleOwner, Observer { items ->
+            // update UI
+            Log.i("TAG", "EVER?")
+            adapter?.itemsList?.addAll(items)
+            adapter?.notifyDataSetChanged()
+            spin.visibility = View.GONE
+            loading = true
+        })
+        itemsViewModel.getNewItems()
         adapter?.getPositionClicks()?.subscribe {
             Log.i("TAG", "HERE CLICKED")
             val intent = Intent(context, ItemActivity::class.java)
             intent.putExtra("item", it)
             startActivity(intent)
         }
-        homeViewModel?.contents?.observe(viewLifecycleOwner, Observer {
-            adapter?.notifyDataSetChanged()
-        })
-    }
-
-    private fun getItems() {
-        val apiInterface: APIInterface =
-            context.let { it?.let { it1 -> APIClient.getRetrofit(it1) } }!!.create(APIInterface::class.java)
-        apiInterface.getContent(homeViewModel!!.page++)
-            ?.enqueue(object : Callback<java.util.ArrayList<Item>?> {
-                override fun onResponse(
-                    call: Call<java.util.ArrayList<Item>?>,
-                    response: Response<java.util.ArrayList<Item>?>
-                ) {
-                    if (response.isSuccessful && response.body() != null) {
-                        homeViewModel?.contents?.value = response.body()
-                        Log.i("TAG", response.body().toString())
-                        initRecycler()
-                        loading = true
-                    } else {
-                        Log.i("TAG", "Error in onResponse of items " + response.code())
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<java.util.ArrayList<Item>?>,
-                    t: Throwable
-                ) {
-                    Log.i(
-                        "TAGd", t.message
-                    )
-                }
-            })
-    }
-
-    private fun loadItems() {
-        val apiInterface: APIInterface =
-            context.let { it?.let { it1 -> APIClient.getRetrofit(it1) } }!!.create(APIInterface::class.java)
-        apiInterface.getContent(homeViewModel!!.page++)
-            ?.enqueue(object : Callback<java.util.ArrayList<Item>?> {
-                override fun onResponse(
-                    call: Call<java.util.ArrayList<Item>?>,
-                    response: Response<java.util.ArrayList<Item>?>
-                ) {
-                    if (response.isSuccessful && response.body() != null) {
-                        homeViewModel?.contents?.value?.addAll(response.body()!!)
-                        Log.i("TAG", "HERE " + response.body()!!.size)
-                        adapter?.notifyDataSetChanged()
-                        loading = true
-                    } else {
-                        Log.i("TAG", "Error in onResponse of items here " + response.code())
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<java.util.ArrayList<Item>?>,
-                    t: Throwable
-                ) {
-                    Log.i(
-                        "TAGd", t.message
-                    )
-                }
-            })
+        loading = true
     }
 
 }

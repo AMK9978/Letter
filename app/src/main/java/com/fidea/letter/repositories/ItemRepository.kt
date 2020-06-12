@@ -2,12 +2,17 @@ package com.fidea.letter.repositories
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.fidea.letter.api.APIClient
+import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.Item
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import javax.inject.Singleton
 
+@Singleton
 class ItemRepository {
-
-    private var items: ArrayList<Item>? = null
-    private var favorites: ArrayList<Item>? = null
 
     companion object {
         private var repo: ItemRepository? = null
@@ -20,19 +25,67 @@ class ItemRepository {
         }
     }
 
+    var data = MutableLiveData<ArrayList<Item>>()
 
-    fun getContents(): MutableLiveData<ArrayList<Item>> {
-        setContents()
-        val data = MutableLiveData<ArrayList<Item>>()
-        data.value = items
-        Log.i("TAG", "What about here? " + data.value)
+    fun getContents(token: String?, cacheDir: File, page: Int): MutableLiveData<ArrayList<Item>> {
+
+        Log.i("TAG", "PAGE:$page")
+        val apiInterface = APIClient.getRetrofit(token, cacheDir)!!.create(APIInterface::class.java)
+        Log.i("TAG", "Watch:" + token + " " + cacheDir.absoluteFile + " " + page)
+        apiInterface.getContent(page)!!.enqueue(object :
+            Callback<java.util.ArrayList<Item>?> {
+            override fun onFailure(call: Call<java.util.ArrayList<Item>?>, t: Throwable) {
+                Log.i("TAG", "Error in getting items " + t.message)
+            }
+
+            override fun onResponse(
+                call: Call<java.util.ArrayList<Item>?>,
+                response: Response<java.util.ArrayList<Item>?>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    if (data.value == null) {
+                        Log.i("TAG", "LAST:" + " " + response.body()!!.size)
+                        data.value = response.body()
+                    } else {
+                        response.body()!!.addAll(data.value!!)
+                        data.value = response.body()
+                        Log.i("TAG", "LASSST:" + data.value!!.size + " " + response.body()!!.size)
+                    }
+                } else {
+                    Log.i("TAG", "Errtttor in getting items ${response.code()}")
+                }
+            }
+
+        })
+        Log.i("TAG", "FIRST!")
         return data
     }
 
-    private fun setContents() {
-        items = ArrayList()
+    fun getFavorites(token: String?, cacheDir: File): MutableLiveData<ArrayList<Item>> {
+        val data = MutableLiveData<ArrayList<Item>>()
+        val apiInterface = APIClient.getRetrofit(token, cacheDir)!!.create(APIInterface::class.java)
+        apiInterface.getFavorites()!!.enqueue(object :
+            Callback<java.util.ArrayList<Item>?> {
+            override fun onFailure(call: Call<java.util.ArrayList<Item>?>, t: Throwable) {
+                Log.i("TAG", "Error in getting favorites")
+            }
 
+            override fun onResponse(
+                call: Call<java.util.ArrayList<Item>?>,
+                response: Response<java.util.ArrayList<Item>?>
+            ) {
+                if (response.isSuccessful) {
+                    data.value = response.body()
+                    Log.i("TAG", "HERE:" + response.body())
+                } else {
+                    Log.i("TAG", "Error in getting favorites ${response.code()}")
+                }
+            }
+
+        })
+
+        Log.i("TAG", "What about here? " + data.value)
+        return data
     }
-
 
 }

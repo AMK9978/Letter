@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 
 class ItemsAdapter(
     var context: Context,
-    private var itemsList: ArrayList<com.fidea.letter.models.Item>
+    public var itemsList: ArrayList<com.fidea.letter.models.Item>
 ) : RecyclerView.Adapter<ItemsAdapter.Item>() {
 
     private val clickSubject: PublishSubject<com.fidea.letter.models.Item> = PublishSubject

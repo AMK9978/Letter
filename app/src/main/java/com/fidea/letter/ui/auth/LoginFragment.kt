@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fidea.letter.MainActivity
 import com.fidea.letter.R
+import com.fidea.letter.Util
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.Token
@@ -69,7 +70,8 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         val apiInterface: APIInterface =
-            context?.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
+            context?.let { APIClient.getRetrofit(Util.getToken(context!!), Util.getCacheDir(context!!))
+            }!!.create(APIInterface::class.java)
         apiInterface.login(editTextEmail.text.toString(), editTextPassword.text.toString())
             ?.enqueue(object : Callback<Token> {
                 override fun onResponse(

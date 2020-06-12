@@ -1,13 +1,25 @@
 package com.fidea.letter
 
 import android.app.Activity
+import android.content.Context
 import cn.pedant.SweetAlert.SweetAlertDialog
+import java.io.File
 
 class Util {
 
     companion object {
 
-        private fun getErrorDialog(dialog: SweetAlertDialog, activity: Activity) {
+
+        public fun getToken(context: Context): String {
+            return context.getSharedPreferences("pref", Context.MODE_PRIVATE)
+                .getString("token", "").toString()
+        }
+
+        public fun getCacheDir(context: Context): File {
+            return context.cacheDir
+        }
+
+        public fun getErrorDialog(dialog: SweetAlertDialog, activity: Activity) {
             if (dialog.isShowing) dialog.dismiss()
             if (activity.isFinishing) return
             val dialog = SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
@@ -18,7 +30,7 @@ class Util {
             dialog.setConfirmClickListener { dialog.dismiss() }
         }
 
-        private fun getWaitingDialog(dialog: SweetAlertDialog, activity: Activity) {
+        public fun getWaitingDialog(dialog: SweetAlertDialog, activity: Activity) {
             if (dialog.isShowing) dialog.dismiss()
             if (activity.isFinishing) return
             val dialog = SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE)
@@ -29,6 +41,5 @@ class Util {
         }
 
     }
-
 
 }

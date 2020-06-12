@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.fidea.letter.MainActivity
 import com.fidea.letter.R
+import com.fidea.letter.Util
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.api.Temp
@@ -75,7 +76,12 @@ class SignUpFragment : Fragment() {
 
     private fun signUp() {
         val apiInterface: APIInterface =
-            context?.let { APIClient.getRetrofit(it) }!!.create(APIInterface::class.java)
+            context?.let {
+                APIClient.getRetrofit(
+                    Util.getToken(context!!),
+                    Util.getCacheDir(context!!)
+                )
+            }!!.create(APIInterface::class.java)
         apiInterface.signUp(
             editTextName.text.toString(), editTextPassword.text.toString(),
             editTextEmail.text.toString()
@@ -90,8 +96,10 @@ class SignUpFragment : Fragment() {
                         getConfirmEmailDialog()
                     } else {
                         getErrorEmailDialog()
-                        Log.i("TAG", "Error in onResponse " + response.code() + " " +
-                        response.message())
+                        Log.i(
+                            "TAG", "Error in onResponse " + response.code() + " " +
+                                    response.message()
+                        )
                     }
                 }
 

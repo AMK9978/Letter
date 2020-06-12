@@ -8,6 +8,8 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.io.File
+import java.util.concurrent.TimeUnit
 
 class APIClient {
     companion object {
@@ -36,18 +38,20 @@ class APIClient {
                     .addHeader("Authorization", "Bearer $token")
                     .build()
                 chain.proceed(newRequest)
-            }.addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).cache(cache).build()
+            }.connectTimeout(100, TimeUnit.SECONDS)
+            .readTimeout(100, TimeUnit.SECONDS)
+            .writeTimeout(100, TimeUnit.SECONDS).
+                addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).cache(cache).build()
 
 
-        fun getRetrofit(context: Context): Retrofit? {
+        fun getRetrofit(token: String?, cacheDir : File): Retrofit? {
+            this.token = token
             if (token == null || retrofit == null) {
                 val gson = GsonBuilder()
                     .setLenient()
                     .create()
-                token = context.getSharedPreferences("pref", Context.MODE_PRIVATE)
-                    .getString("token", "")
                 val cacheSize = 5 * 1024 * 1024L
-                cache = Cache(context.cacheDir, cacheSize)
+                cache = Cache(cacheDir, cacheSize)
                 return Retrofit.Builder().client(client)
                     .addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson)).build()
