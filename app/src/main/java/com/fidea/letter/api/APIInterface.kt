@@ -1,6 +1,7 @@
 package com.fidea.letter.api
 
 import com.fidea.letter.models.Item
+import com.fidea.letter.models.NotificationModel
 import com.fidea.letter.models.Token
 import retrofit2.Call
 import retrofit2.http.*
@@ -40,6 +41,10 @@ interface APIInterface {
     @GET("favorites")
     fun getFavorites(
     ): Call<ArrayList<Item>>?
+
+
+    @GET("notifications")
+    fun getNotification(): Call<java.util.ArrayList<NotificationModel?>?>?
 
 
 }

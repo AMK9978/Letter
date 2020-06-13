@@ -30,14 +30,15 @@ class Util {
             dialog.setConfirmClickListener { dialog.dismiss() }
         }
 
-        public fun getWaitingDialog(dialog: SweetAlertDialog, activity: Activity) {
+        public fun getWaitingDialog(dialog: SweetAlertDialog, activity: Activity) : SweetAlertDialog? {
             if (dialog.isShowing) dialog.dismiss()
-            if (activity.isFinishing) return
+            if (activity.isFinishing) return null
             val dialog = SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE)
             dialog.setTitle(activity.resources.getString(R.string.wait))
             if (!activity.isFinishing) dialog.show()
             dialog.confirmText = activity.resources.getString(R.string.ok)
             dialog.setConfirmClickListener { dialog.dismiss() }
+            return dialog
         }
 
     }

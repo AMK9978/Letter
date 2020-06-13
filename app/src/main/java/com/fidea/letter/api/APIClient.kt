@@ -44,7 +44,7 @@ class APIClient {
                 addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).cache(cache).build()
 
 
-        fun getRetrofit(token: String?, cacheDir : File): Retrofit? {
+        public fun getRetrofit(token: String?, cacheDir : File): Retrofit? {
             this.token = token
             if (token == null || retrofit == null) {
                 val gson = GsonBuilder()
