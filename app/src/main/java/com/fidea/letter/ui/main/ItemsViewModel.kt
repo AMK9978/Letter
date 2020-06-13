@@ -1,8 +1,7 @@
 package com.fidea.letter.ui.main
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.fidea.letter.models.Item
 import com.fidea.letter.repositories.ItemRepository
@@ -12,15 +11,19 @@ import javax.inject.Inject
 class ItemsViewModel @Inject constructor(
     private val token: String?,
     private val cacheDir: File
-) : ViewModel() {
+) : ViewModel(), LifecycleObserver {
 
     private var page = 0
-    var items: LiveData<ArrayList<Item>> =
+    var items: MutableLiveData<ArrayList<Item>> = MutableLiveData()
+
+    init {
         ItemRepository.getRepo()!!.getContents(token, cacheDir, page++)
-    val favorites: LiveData<ArrayList<Item>> = MutableLiveData<ArrayList<Item>>()
+    }
+
+    val favorites: MutableLiveData<ArrayList<Item>> = MutableLiveData<ArrayList<Item>>()
 
     fun getNewItems() {
-        items = ItemRepository.getRepo()!!.getContents(token, cacheDir, page++)
+        ItemRepository.getRepo()!!.getContents(token, cacheDir, page++)
     }
 
     fun getFavorites() {

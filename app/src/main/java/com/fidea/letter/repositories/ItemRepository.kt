@@ -2,6 +2,7 @@ package com.fidea.letter.repositories
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.fidea.letter.RxBus
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.Item
@@ -25,10 +26,8 @@ class ItemRepository {
         }
     }
 
-    var data = MutableLiveData<ArrayList<Item>>()
 
-    fun getContents(token: String?, cacheDir: File, page: Int): MutableLiveData<ArrayList<Item>> {
-
+    fun getContents(token: String?, cacheDir: File, page: Int) {
         Log.i("TAG", "PAGE:$page")
         val apiInterface = APIClient.getRetrofit(token, cacheDir)!!.create(APIInterface::class.java)
         Log.i("TAG", "Watch:" + token + " " + cacheDir.absoluteFile + " " + page)
@@ -43,22 +42,13 @@ class ItemRepository {
                 response: Response<java.util.ArrayList<Item>?>
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    if (data.value == null) {
-                        Log.i("TAG", "LAST:" + " " + response.body()!!.size)
-                        data.value = response.body()
-                    } else {
-                        response.body()!!.addAll(data.value!!)
-                        data.value = response.body()
-                        Log.i("TAG", "LASSST:" + data.value!!.size + " " + response.body()!!.size)
-                    }
+                    RxBus.getNewItems().onNext(response.body()!!)
                 } else {
                     Log.i("TAG", "Errtttor in getting items ${response.code()}")
                 }
             }
 
         })
-        Log.i("TAG", "FIRST!")
-        return data
     }
 
     fun getFavorites(token: String?, cacheDir: File): MutableLiveData<ArrayList<Item>> {
