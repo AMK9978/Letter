@@ -81,7 +81,8 @@ class PersonalFragment : Fragment() {
 
 
     private fun performEdit() {
-
+        val intent = Intent(context, EditActivity::class.java)
+        startActivity(intent)
     }
 
 
@@ -122,7 +123,8 @@ class PersonalFragment : Fragment() {
      */
     private fun setOnAlarmManager() {
         val alarmIntent: PendingIntent
-        val alarmMgr: AlarmManager? = getSystemService(context!!, Context.ALARM_SERVICE.javaClass) as AlarmManager?
+        val alarmMgr: AlarmManager? =
+            getSystemService(context!!, Context.ALARM_SERVICE.javaClass) as AlarmManager?
         val intent = Intent(context, BroadcastReceiver::class.java)
         alarmIntent = PendingIntent.getBroadcast(context!!, 0, intent, 0)
         val calendar = Calendar.getInstance()
@@ -168,8 +170,10 @@ class PersonalFragment : Fragment() {
                 }
                 setAvatar(
                     provideSetAvatarBody(
-                        data.data!!)
-                    !!)
+                        data.data!!
+                    )
+                    !!
+                )
             }
         }
     }

@@ -5,4 +5,9 @@
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
         <item name="android:backgroundTint">@color/primaryTextColor</item>
     </style>
+
+    <style name="primaryModifiedEditText" parent="parent">
+        <item name="android:textSize">@dimen/newsMoreTextSize</item>
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+    </style>
 </resources>

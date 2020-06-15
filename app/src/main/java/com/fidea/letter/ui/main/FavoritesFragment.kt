@@ -28,7 +28,7 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.main_fragment, container, false)
+        val view = inflater.inflate(R.layout.favorites_fragment, container, false)
         itemsViewModel = ItemsViewModel(getToken(), getCacheDir())
         initRecycler()
         return view
