@@ -22,9 +22,7 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
-import com.fidea.letter.BroadcastReceiver
-import com.fidea.letter.R
-import com.fidea.letter.Util
+import com.fidea.letter.*
 import kotlinx.android.synthetic.main.personal_fragment.*
 import kotlinx.android.synthetic.main.personal_fragment.view.*
 import okhttp3.MediaType
@@ -72,11 +70,13 @@ class PersonalFragment : Fragment() {
 
 
     private fun performMessages() {
-
+        val intent = Intent(context, MessagesActivity::class.java)
+        startActivity(intent)
     }
 
     private fun performAboutUs() {
-
+        val intent = Intent(context, AboutActivity::class.java)
+        startActivity(intent)
     }
 
 

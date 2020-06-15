@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingEnd="24dp"
+            android:paddingStart="24dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,7 +46,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_margin="16dp"
                 app:cardBackgroundColor="@color/whiteTextColor"
                 app:cardCornerRadius="10dp">
 
@@ -55,10 +56,21 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:paddingTop="@dimen/nav_header_vertical_spacing"
+                        android:src="@drawable/ic_person_white_48dp"
+                        app:civ_border_color="@color/white"
+                        android:layout_gravity="center"
+                        app:civ_border_width="2dp"
+                        app:civ_circle_background_color="@color/register_bk_color" />
+
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputName"
-                        style="@style/parent"
-                        android:layout_marginTop="@dimen/loginViewsMargin">
+                        style="@style/parent">
 
                         <EditText
                             android:id="@+id/editTextName"
@@ -93,6 +105,7 @@
                             style="@style/modifiedEditText"
                             android:fontFamily="@font/iran_sans_fanum"
                             android:hint="پسورد"
+                            android:textDirection="rtl"
                             android:inputType="textPassword"
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -158,44 +171,21 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="53dp"
-                    android:layout_height="42dp"
-                    android:src="@drawable/facebook" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/gmail" />
-            </LinearLayout>
-
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/gmail" />
 
         </LinearLayout>
     </ScrollView>
-
-    <View
-        android:layout_width="11dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_side_bg" />
 
     <ImageView
         android:id="@+id/image_gotoLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="11dp"
         android:layout_marginBottom="30dp"
         android:adjustViewBounds="false"
         android:src="@drawable/ic_back_img" />

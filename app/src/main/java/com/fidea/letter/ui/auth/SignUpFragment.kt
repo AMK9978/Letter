@@ -93,7 +93,7 @@ class SignUpFragment : Fragment() {
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()!!
-                        getConfirmEmailDialog()
+                        gotoAfter()
                     } else {
                         getErrorEmailDialog()
                         Log.i(
@@ -138,16 +138,10 @@ class SignUpFragment : Fragment() {
         dialog.setConfirmClickListener { dialog.dismiss() }
     }
 
-    private fun getConfirmEmailDialog() {
-        if (activity!!.isFinishing) return
-        if (dialog.isShowing) dialog.dismiss()
-        dialog = SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
-        dialog.contentText = resources.getString(R.string.confirm_email)
-        if (!activity!!.isFinishing)
-            dialog.show()
-        dialog.setCancelable(false)
-        dialog.confirmText = resources.getString(R.string.ok)
-        dialog.setConfirmClickListener { dialog.dismiss() }
+    private fun gotoAfter() {
+        activity!!.supportFragmentManager.beginTransaction()
+            .replace(R.id.container, AfterSignupFragment.newInstance())
+            .commitNow()
     }
 
     private fun getErrorEmailDialog() {

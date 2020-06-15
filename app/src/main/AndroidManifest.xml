@@ -31,11 +31,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".MessagesActivity" />
+
         <receiver
             android:name=".BroadcastReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -49,7 +51,6 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-
 
         <activity android:name=".AuthActivity">
             <intent-filter>
