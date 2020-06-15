@@ -1,12 +1,22 @@
 package com.fidea.letter.ui.main
 
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fidea.letter.models.Board
 import com.fidea.letter.models.Item
+import com.fidea.letter.repositories.BoardRepository
+import java.io.File
 
-class BoardViewModel : ViewModel() {
+class BoardViewModel @javax.inject.Inject constructor(
+    private val token: String?,
+    private val cacheDir: File
+) : ViewModel(), LifecycleObserver {
+
     // TODO: Implement the ViewModel
+    var boards: MutableLiveData<ArrayList<Board>> = MutableLiveData()
 
-    var boards: MutableLiveData<ArrayList<Board>>? = null
+    init {
+        BoardRepository.getRepo()!!.getContents(token, cacheDir)
+    }
 }

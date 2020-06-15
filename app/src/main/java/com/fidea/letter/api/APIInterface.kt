@@ -1,5 +1,6 @@
 package com.fidea.letter.api
 
+import com.fidea.letter.models.Board
 import com.fidea.letter.models.Item
 import com.fidea.letter.models.NotificationModel
 import com.fidea.letter.models.Token
@@ -45,6 +46,22 @@ interface APIInterface {
 
     @GET("notifications")
     fun getNotification(): Call<java.util.ArrayList<NotificationModel?>?>?
+
+
+    @GET("board")
+    fun getBoards(): Call<ArrayList<Board>>
+
+    @GET("board")
+    fun getBoardDetails(@Path("<int:pk>") pk: Int): Call<ArrayList<Item>>?
+
+    @GET("profile")
+    fun getProfile(@Path("<int:pk>") pk: Int): Call<ArrayList<Item>>?
+
+    @POST("search")
+    fun search(): Call<ArrayList<Item>>?
+
+
+
 
 
 }
