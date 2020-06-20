@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@color/gray_melon"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:layoutDirection="rtl"
         app:titleTextColor="@color/white">
@@ -26,12 +26,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:drawablePadding="8dp"
-            android:drawableStart="@drawable/ic_search_gray_24dp"
+            android:drawableStart="@drawable/ic_arrow_forward_forward_24dp"
             android:fontFamily="@font/kodakku"
             android:hint="جستجو..."
             android:gravity="center_vertical"
             android:padding="8dp"
-            android:background="@drawable/search_background" />
+            android:background="@color/white" />
 
     </androidx.appcompat.widget.Toolbar>
 

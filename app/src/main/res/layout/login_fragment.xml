@@ -138,6 +138,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/gmail"
                 android:layout_width="50dp"
                 android:layout_gravity="center"
                 android:layout_height="50dp"

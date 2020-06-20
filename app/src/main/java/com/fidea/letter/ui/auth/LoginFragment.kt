@@ -17,6 +17,11 @@ import com.fidea.letter.Util
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.Token
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.login_fragment.view.*
 import retrofit2.Call
@@ -25,6 +30,7 @@ import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
+    private val RC_SIGN_IN: Int = 105
     private var loginViewModel: LoginViewModel? = null
 
     companion object {
@@ -53,8 +59,30 @@ class LoginFragment : Fragment() {
                 login()
             }
         }
+
+        view.gmail.setOnClickListener {
+            loginWithGmail()
+        }
+
+
         return view
     }
+
+    private fun loginWithGmail(){
+
+    }
+
+    private fun signIn(){val gso =
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        // Build a GoogleSignInClient with the options specified by gso.
+        val mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+
+        val signInIntent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent,RC_SIGN_IN)
+    }
+
 
     private fun checkFields(): Boolean {
         if (editTextEmail.text.isEmpty() || editTextPassword.text.isEmpty()) {
@@ -70,7 +98,8 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         val apiInterface: APIInterface =
-            context?.let { APIClient.getRetrofit(Util.getToken(context!!), Util.getCacheDir(context!!))
+            context?.let {
+                APIClient.getRetrofit(Util.getToken(context!!), Util.getCacheDir(context!!))
             }!!.create(APIInterface::class.java)
         apiInterface.login(editTextEmail.text.toString(), editTextPassword.text.toString())
             ?.enqueue(object : Callback<Token> {
@@ -83,8 +112,10 @@ class LoginFragment : Fragment() {
                         storeToken(token)
                         gotoHome()
                     } else {
-                        Log.i("TAG", "Error in onResponse of Products " + response.code() +
-                        " " + response.message() + " " + response.errorBody())
+                        Log.i(
+                            "TAG", "Error in onResponse of Products " + response.code() +
+                                    " " + response.message() + " " + response.errorBody()
+                        )
                     }
                 }
 
@@ -120,6 +151,22 @@ class LoginFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RC_SIGN_IN){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            Log.i("TAG", "Signed in successfully")
+        }catch (e:ApiException){
+            Log.i("TAG", "ERROR IN SIGN IN WITH GOOGLE")
+        }
+    }
 
     private fun onSignUpClick() {
         activity!!.supportFragmentManager.beginTransaction()
