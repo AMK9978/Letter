@@ -1,16 +1,19 @@
 package com.fidea.letter
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.fidea.letter.ui.main.BoardFragment
 import com.fidea.letter.ui.main.FavoritesFragment
 import com.fidea.letter.ui.main.HomeFragment
 import com.fidea.letter.ui.main.PersonalFragment
 import kotlinx.android.synthetic.main.main_activity.*
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     private fun loadFragment(fragment: Fragment?) {

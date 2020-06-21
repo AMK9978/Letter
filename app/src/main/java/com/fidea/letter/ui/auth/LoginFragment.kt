@@ -68,19 +68,21 @@ class LoginFragment : Fragment() {
         return view
     }
 
-    private fun loginWithGmail(){
+    private fun loginWithGmail() {
 
+        signIn()
     }
 
-    private fun signIn(){val gso =
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
+    private fun signIn() {
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
         // Build a GoogleSignInClient with the options specified by gso.
         val mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
 
         val signInIntent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent,RC_SIGN_IN)
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
 
@@ -153,17 +155,17 @@ class LoginFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RC_SIGN_IN){
+        if (resultCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
     }
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             Log.i("TAG", "Signed in successfully")
-        }catch (e:ApiException){
+        } catch (e: ApiException) {
             Log.i("TAG", "ERROR IN SIGN IN WITH GOOGLE")
         }
     }

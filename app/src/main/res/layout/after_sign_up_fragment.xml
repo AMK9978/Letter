@@ -98,6 +98,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/iran_sans_fanum"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:paddingBottom="8dp"
                 android:text="نامه ای برای تو!"
                 android:textSize="16sp" />

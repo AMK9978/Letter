@@ -1,6 +1,5 @@
 package com.fidea.letter.api
 
-import android.content.Context
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -13,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 class APIClient {
     companion object {
-        private const val BASE_URL = "http://amkhastam.pythonanywhere.com/api/"
+        private const val BASE_URL = "http://armanexplorer.pythonanywhere.com/api/"
         private val REWRITE_CACHE_CONTROL_INTERCEPTOR =
             Interceptor { chain: Interceptor.Chain ->
                 val originalResponse = chain.proceed(chain.request())
@@ -40,11 +39,11 @@ class APIClient {
                 chain.proceed(newRequest)
             }.connectTimeout(100, TimeUnit.SECONDS)
             .readTimeout(100, TimeUnit.SECONDS)
-            .writeTimeout(100, TimeUnit.SECONDS).
-                addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).cache(cache).build()
+            .writeTimeout(100, TimeUnit.SECONDS).addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+            .cache(cache).build()
 
 
-        public fun getRetrofit(token: String?, cacheDir : File): Retrofit? {
+        public fun getRetrofit(token: String?, cacheDir: File): Retrofit? {
             this.token = token
             if (token == null || retrofit == null) {
                 val gson = GsonBuilder()

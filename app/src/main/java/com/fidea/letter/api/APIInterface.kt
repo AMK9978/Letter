@@ -4,6 +4,8 @@ import com.fidea.letter.models.Board
 import com.fidea.letter.models.Item
 import com.fidea.letter.models.NotificationModel
 import com.fidea.letter.models.Token
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -11,10 +13,11 @@ interface APIInterface {
 
     //AUTHENTICATION//////////////////////
     @POST("signup")
-    @FormUrlEncoded
+    @Multipart
     fun signUp(
-        @Field("username") username: String?, @Field("password") password: String?,
-        @Field("email") email: String?
+        @Part("username") username: RequestBody, @Part("password") password: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part user_image: MultipartBody.Part
     ): Call<Temp>?
 
     @POST("login")
@@ -59,9 +62,6 @@ interface APIInterface {
 
     @POST("search")
     fun search(): Call<ArrayList<Item>>?
-
-
-
 
 
 }
