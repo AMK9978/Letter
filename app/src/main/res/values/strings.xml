@@ -9,4 +9,7 @@
 
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
+    <string name="about_us">همه ما وقت های زیادی را برای پیدا کردن محتوای مناسب و مورد علاقه مون توی فضای مجازی گذرانده ایم، خیلی وقتا هم به چیزی که میخواسته ایم
+     نرسیده ایم، نامه اینجاست تا این مشکل رو حل کنه! چیزی که مخصوصا توی وب فارسی جاش خالی بود.</string>
+    <string name="email">futureideas@gmail.com</string>
 </resources>
