@@ -99,9 +99,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun login() {
-        val apiInterface: APIInterface =
-            context?.let {
-                APIClient.getRetrofit(Util.getToken(context!!), Util.getCacheDir(context!!))
+        val apiInterface: APIInterface = context?.let {
+                APIClient.getRetrofit()
             }!!.create(APIInterface::class.java)
         apiInterface.login(editTextEmail.text.toString(), editTextPassword.text.toString())
             ?.enqueue(object : Callback<Token> {

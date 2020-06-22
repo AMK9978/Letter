@@ -8,11 +8,11 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
@@ -21,7 +21,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.fidea.letter.MainActivity
 import com.fidea.letter.R
-import com.fidea.letter.Util
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.api.Temp
@@ -38,14 +37,19 @@ import java.io.File
 
 
 class SignUpFragment : Fragment() {
+    private var myPathFile: File? = null
     private var loginViewModel: LoginViewModel? = null
     private lateinit var dialog: SweetAlertDialog
-    private lateinit var body: MultipartBody.Part
+    private var body: MultipartBody.Part? = null
     private val galleryReqCode = 100
     private val permissionCode = 101
 
     companion object {
         fun newInstance() = SignUpFragment()
+    }
+
+    init {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
     override fun onCreateView(
@@ -81,15 +85,18 @@ class SignUpFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (PermissionChecker.checkSelfPermission(
                     context!!,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) != PermissionChecker.PERMISSION_GRANTED
             ) {
                 // Should we show an explanation?
                 shouldShowRequestPermissionRationale(
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) // Explain to the user why we need to read the contacts
                 requestPermissions(
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ),
                     permissionCode
                 )
             } else {
@@ -108,7 +115,7 @@ class SignUpFragment : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (permissionCode == requestCode) {
-            if (grantResults.size != 0 && grantResults[0] ==
+            if (grantResults.isNotEmpty() && grantResults[0] ==
                 PackageManager.PERMISSION_GRANTED
             ) { //permission from popup granted
                 pickImageFromGallery()
@@ -127,7 +134,9 @@ class SignUpFragment : Fragment() {
         if (resultUri.path == null) {
             return null
         }
-        val string = resultUri.let { context!!.contentResolver.openInputStream(it).use { it!!.reader().readText() } }
+        val string = resultUri.let {
+            context!!.contentResolver.openInputStream(it).use { it!!.reader().readText() }
+        }
 
         Log.i("TAG", string)
         val file = File(resultUri.path)
@@ -149,12 +158,12 @@ class SignUpFragment : Fragment() {
      */
     private fun performCrop(picUri: Uri) {
         Log.i("TAG", picUri.toString())
-        val file = File(context!!.getExternalFilesDir(null), "letter")
+        val file = File(Environment.getExternalStorageDirectory(), "letter")
         val ss = "profileImage.png"
         if (!file.exists()) {
-            file.mkdirs()
+            file.mkdir()
         }
-        val myPathFile = File(file.absolutePath + "/" + ss)
+        myPathFile = File(file.absolutePath + "/" + ss)
         val options = UCrop.Options()
         options.setToolbarTitle("برش تصویر")
         options.setToolbarColor(resources.getColor(R.color.colorPrimary))
@@ -169,7 +178,7 @@ class SignUpFragment : Fragment() {
         options.setActiveWidgetColor(resources.getColor(R.color.colorPrimary))
         UCrop.of(picUri, Uri.fromFile(myPathFile)).withOptions(options)
             .withAspectRatio(1f, 1f)
-            .start(activity as AppCompatActivity)
+            .start(context!!, this)
     }
 
     private fun checkFields(): Boolean {
@@ -188,16 +197,19 @@ class SignUpFragment : Fragment() {
         val name: RequestBody =
             RequestBody.create(MediaType.parse("multipart/form-data"), editTextName.text.toString())
         val password: RequestBody =
-            RequestBody.create(MediaType.parse("multipart/form-data"), editTextPassword.text.toString())
+            RequestBody.create(
+                MediaType.parse("multipart/form-data"),
+                editTextPassword.text.toString()
+            )
         val email: RequestBody =
-            RequestBody.create(MediaType.parse("multipart/form-data"), editTextEmail.text.toString())
+            RequestBody.create(
+                MediaType.parse("multipart/form-data"),
+                editTextEmail.text.toString()
+            )
 
         val apiInterface: APIInterface =
             context?.let {
-                APIClient.getRetrofit(
-                    Util.getToken(context!!),
-                    Util.getCacheDir(context!!)
-                )
+                APIClient.getRetrofit()
             }!!.create(APIInterface::class.java)
         apiInterface.signUp(
             name, password, email, body
@@ -245,27 +257,17 @@ class SignUpFragment : Fragment() {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            Log.i("TAG", "HERE AND GRANTED")
-            if (resultCode == Activity.RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-                if (data.data != null) {
-                    Glide.with(this).load(data.data).placeholder(R.drawable.ic_person_green_24dp)
-                        .into(profile_image)
-                    Log.i("TAG", "here:$data.data ")
-                    if (data.data == null || data.data!!.path == null) {
-                        return
-                    }
-
-                    body = provideSetAvatarBody(
-                        data.data!!
-                    )!!
-                }
-            }
-        }
         if (resultCode == Activity.RESULT_OK && requestCode == galleryReqCode) {
             if (data != null && data.data != null) performCrop(data.data!!)
         }
 
+        if (data != null) {
+            Glide.with(this).load(myPathFile).placeholder(R.drawable.ic_person_green_24dp)
+                .into(profile_image)
+            body = provideSetAvatarBody(
+                Uri.fromFile(myPathFile)
+            )!!
+        }
     }
 
     private fun gotoHome() {

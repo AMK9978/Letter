@@ -1,9 +1,6 @@
 package com.fidea.letter.api
 
-import com.fidea.letter.models.Board
-import com.fidea.letter.models.Item
-import com.fidea.letter.models.NotificationModel
-import com.fidea.letter.models.Token
+import com.fidea.letter.models.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -17,7 +14,7 @@ interface APIInterface {
     fun signUp(
         @Part("username") username: RequestBody, @Part("password") password: RequestBody,
         @Part("email") email: RequestBody,
-        @Part user_image: MultipartBody.Part
+        @Part user_image: MultipartBody.Part?
     ): Call<Temp>?
 
     @POST("login")
@@ -57,8 +54,8 @@ interface APIInterface {
     @GET("board")
     fun getBoardDetails(@Path("<int:pk>") pk: Int): Call<ArrayList<Item>>?
 
-    @GET("profile")
-    fun getProfile(@Path("<int:pk>") pk: Int): Call<ArrayList<Item>>?
+    @GET("user")
+    fun getProfile(): Call<User>?
 
     @POST("search")
     fun search(): Call<ArrayList<Item>>?

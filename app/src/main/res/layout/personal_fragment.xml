@@ -40,11 +40,11 @@
                     app:civ_circle_background_color="@color/colorPrimaryLight" />
 
                 <TextView
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/iran_sans_fanum"
-                    android:text="امیرمحمد کریمی"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp" />
             </LinearLayout>

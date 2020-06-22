@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat.getSystemService
@@ -23,11 +24,18 @@ import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.fidea.letter.*
+import com.fidea.letter.api.APIClient
+import com.fidea.letter.api.APIInterface
+import com.fidea.letter.models.User
+import kotlinx.android.synthetic.main.activity_item.*
 import kotlinx.android.synthetic.main.personal_fragment.*
 import kotlinx.android.synthetic.main.personal_fragment.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.util.*
 
@@ -36,6 +44,7 @@ class PersonalFragment : Fragment() {
 
     private val galleryReqCode = 100
     private val dialog: SweetAlertDialog? = null
+    private var name: TextView? = null
     private val INTERVAL = 1000 * 60 * 2.toLong()
     private val permissionCode = 101
 
@@ -65,7 +74,35 @@ class PersonalFragment : Fragment() {
         messages.setOnClickListener {
             performMessages()
         }
+        name = view.name
+        getProfile()
         return view
+    }
+
+    private fun getProfile() {
+
+        val apiInterface: APIInterface =
+            APIClient.getRetrofit(Util.getToken(context!!), Util.getCacheDir(context!!))!!
+                .create(APIInterface::class.java)
+        apiInterface.getProfile()?.enqueue(object : Callback<User?> {
+            override fun onFailure(call: Call<User?>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<User?>, response: Response<User?>) {
+                name?.text = response.body()?.username
+                loadImage(response.body()!!.avatar)
+            }
+
+        })
+    }
+
+    private fun loadImage(imagePath: String?) {
+        if (imagePath == null) {
+            return
+        }
+        Glide.with(context!!)
+            .load(imagePath).placeholder(R.drawable.placeholder).into(app_bar_image)
     }
 
 

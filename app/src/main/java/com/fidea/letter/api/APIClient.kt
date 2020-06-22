@@ -57,5 +57,14 @@ class APIClient {
             }
             return retrofit
         }
+
+        public fun getRetrofit(): Retrofit? {
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
+            return Retrofit.Builder().client(client)
+                .addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson)).build()
+        }
     }
 }

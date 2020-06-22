@@ -6,14 +6,21 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import com.fidea.letter.ui.auth.LoginFragment
 import java.io.File
 
 
 class AuthActivity : AppCompatActivity() {
+
+    init {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +56,12 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun fill() {
-        val file = File(getExternalFilesDir(null), "letter")
+        val file = File(Environment.getExternalStorageDirectory(), "letter")
         if (!file.exists()) {
-            file.mkdirs()
+            Log.i("TAG", "Not exists:" + file.mkdirs())
+        }else{
+            Log.i("TAG", "exists:" + file.absolutePath)
         }
-        Log.i("TAG", "In fill")
     }
 
     override fun onRequestPermissionsResult(
