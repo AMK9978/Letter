@@ -51,8 +51,6 @@ interface APIInterface {
     @GET("board")
     fun getBoards(): Call<ArrayList<Board>>
 
-    @GET("board")
-    fun getBoardDetails(@Path("<int:pk>") pk: Int): Call<ArrayList<Item>>?
 
     @GET("user")
     fun getProfile(): Call<User>?

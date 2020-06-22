@@ -37,7 +37,7 @@ class ItemActivity : AppCompatActivity() {
             toolbar.navigationIcon = resources.getDrawable(R.drawable.ic_arrow_back_white_24dp)
             toolbar.setNavigationOnClickListener { onBackPressed() }
             dialog = SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-            Glide.with(this).load(item.imageUrl).placeholder(R.drawable.placeholder).into(app_bar_image)
+            Glide.with(this).load(item.imagePath).placeholder(R.drawable.placeholder).into(app_bar_image)
         }
 
         like.setOnClickListener {

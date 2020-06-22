@@ -44,7 +44,7 @@ class ItemsAdapter(
         val item = itemsList[position]
         holder.itemView.title.text = item.title
         holder.itemView.description.text = item.description
-        Glide.with(context).load(item.imageUrl).placeholder(R.drawable.placeholder)
+        Glide.with(context).load(item.imagePath).placeholder(R.drawable.placeholder)
            .centerCrop().into(holder.itemView.avatar)
         holder.itemView.setOnClickListener {
             clickSubject.onNext(item)

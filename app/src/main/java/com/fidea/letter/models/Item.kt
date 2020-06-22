@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class Item(
     var id: Int, var title: String, var description: String, var imageUrl: String,
-    var url: String, var rating: Double, var year: Int, var announce: String,
+    var imagePath: String, var rating: Double, var year: Int, var announce: String,
     var summary: String, var votes: Int
 ) :
     Serializable {
