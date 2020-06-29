@@ -13,18 +13,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:shimmer_duration="1500">
-
             <ImageView
                 android:id="@+id/avatar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/placeholder" />
-        </com.facebook.shimmer.ShimmerFrameLayout>
 
 
         <TextView

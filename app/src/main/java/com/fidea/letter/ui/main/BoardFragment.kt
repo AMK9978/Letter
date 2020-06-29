@@ -38,13 +38,28 @@ class BoardFragment : Fragment() {
 
     private fun initBoards() {
         boardViewModel = BoardViewModel(getToken(context!!), getCacheDir(context!!))
+        val dramma = Board()
+        dramma.imagePath = "https://literatelai.files.wordpress.com/2012/05/666px-p_culture_violet.png"
+        dramma.title =  "درام"
+
+        val commedy = Board()
+        commedy.imagePath = "https://lh3.googleusercontent.com/proxy/k99lee5RYiDRR3an-XiHkV7v3clWj2vxEW2xWgFeePX_IdzRqn6_RRn1VEVbj_kZIttKLMlpjpMIv-D6_bXJQ9NwyIideQBD4EsYrzYj0y5UwKOq1fI4NtjNb2Og2yeEWHfBHQ"
+        commedy.title =  "کمدی"
+
+        val crime = Board()
+        crime.imagePath = "https://image.slidesharecdn.com/crimegenre-140126060700-phpapp02/95/crime-genre-1-638.jpg?cb=1390716461"
+        crime.title =  "جنایی"
+
+        arrayList.add(dramma)
+        arrayList.add(commedy)
+        arrayList.add(crime)
         adapter =
             BoardsAdapter(
                 context!!,
                 arrayList
             )
         boards.adapter = adapter
-        boards.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        boards.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
 
     }
 
