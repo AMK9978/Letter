@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
+import com.fidea.letter.databinding.ActivityItemBinding
 import com.fidea.letter.models.Item
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_item.*
@@ -21,19 +23,17 @@ class ItemActivity : AppCompatActivity() {
 
     private lateinit var dialog: SweetAlertDialog
     private lateinit var item: Item
+    private lateinit var binding: ActivityItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_item)
+
         if (intent.extras != null && intent.extras?.get("item") != null) {
             item = intent.extras?.get("item") as Item
+            binding.item = item
             setSupportActionBar(toolbar)
-            Objects.requireNonNull(supportActionBar)?.setDisplayHomeAsUpEnabled(true)
-            movieTitle.text = item.title
-            titleTxt.text = item.title
-            description.text = item.description
-            Log.i("TAG", movieTitle.text.toString() + " " + description.text.toString())
-            supportActionBar!!.setDisplayShowHomeEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
             toolbar.navigationIcon = resources.getDrawable(R.drawable.ic_arrow_back_white_24dp)
             toolbar.setNavigationOnClickListener { onBackPressed() }
             dialog = SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)

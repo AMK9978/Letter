@@ -1,192 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/register_bk_color"
-    android:focusableInTouchMode="true"
-    android:gravity="center"
-    tools:context=".ui.auth.SignUpFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true">
+        android:layout_gravity="center"
+        android:background="@color/register_bk_color"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        tools:context=".ui.auth.SignUpFragment">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingEnd="24dp"
-            android:paddingStart="24dp">
-
-            <RelativeLayout
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    style="@style/viewParent.headerText.NoMode"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/iran_sans_fanum"
-                    android:text="یک قدم \nتا نامه!"
-                    android:textColor="@color/whiteTextColor" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_login_hero" />
-            </RelativeLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/whiteTextColor"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:paddingTop="@dimen/nav_header_vertical_spacing"
-                        android:src="@drawable/ic_person_white_48dp"
-                        app:civ_border_color="@color/white"
-                        android:layout_gravity="center"
-                        app:civ_border_width="2dp"
-                        app:civ_circle_background_color="@color/register_bk_color" />
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputName"
-                        style="@style/parent">
-
-                        <EditText
-                            android:id="@+id/editTextName"
-                            style="@style/modifiedEditText"
-                            android:fontFamily="@font/iran_sans_fanum"
-                            android:hint="نام کاربری"
-                            android:inputType="textPersonName"
-                            android:maxLines="1" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputEmail"
-                        style="@style/parent"
-                        android:layout_marginTop="@dimen/loginViewsMargin">
-
-                        <EditText
-                            android:id="@+id/editTextEmail"
-                            style="@style/modifiedEditText"
-                            android:fontFamily="@font/iran_sans_fanum"
-                            android:hint="ایمیل"
-                            android:inputType="textEmailAddress"
-                            android:maxLines="1" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputPassword"
-                        style="@style/parent"
-                        android:layout_marginTop="@dimen/loginViewsMargin">
-
-                        <EditText
-                            android:id="@+id/editTextPassword"
-                            style="@style/modifiedEditText"
-                            android:fontFamily="@font/iran_sans_fanum"
-                            android:hint="پسورد"
-                            android:textDirection="rtl"
-                            android:inputType="textPassword"
-                            android:maxLines="1" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                        android:id="@+id/cirRegisterButton"
-                        style="@style/loginButton"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/loginViewsMargin"
-                        android:fontFamily="@font/iran_sans_fanum"
-                        android:text="ثبت نام"
-                        app:initialCornerAngle="27dp"
-                        app:spinning_bar_color="#FFF"
-                        app:spinning_bar_padding="6dp"
-                        app:spinning_bar_width="4dp" />
-
-                    <TextView
-                        android:id="@+id/gotoLogin"
-                        style="@style/parent"
-                        android:layout_marginTop="@dimen/loginViewsMargin"
-                        android:fontFamily="@font/iran_sans_fanum"
-                        android:text="قبلا عضو شده اید؟"
-                        android:textAlignment="center"
-                        android:textColor="@color/themeColor"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:weightSum="12">
+                android:orientation="vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="3"
-                    android:background="@color/whiteTextColor" />
-
-                <TextView
-                    style="@style/viewParent.headerText.NoMode"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="6"
-                    android:fontFamily="@font/iran_sans_fanum"
-                    android:gravity="center"
-                    android:text="راه های دیگه برای ورود"
-                    android:textAlignment="center"
-                    android:textColor="@color/whiteTextColor"
-                    android:textSize="12sp" />
+                    android:layout_marginTop="30dp">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="3"
-                    android:background="@color/whiteTextColor" />
+                    <TextView
+                        style="@style/viewParent.headerText.NoMode"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/iran_sans_fanum"
+                        android:text="یک قدم \nتا نامه!"
+                        android:textColor="@color/whiteTextColor" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_login_hero" />
+                </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:cardBackgroundColor="@color/whiteTextColor"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_image"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center"
+                            android:paddingTop="@dimen/nav_header_vertical_spacing"
+                            android:src="@drawable/ic_person_white_48dp"
+                            app:civ_border_color="@color/white"
+                            app:civ_border_width="2dp"
+                            app:civ_circle_background_color="@color/register_bk_color" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputName"
+                            style="@style/parent">
+
+                            <EditText
+                                android:id="@+id/editTextName"
+                                style="@style/modifiedEditText"
+                                android:fontFamily="@font/iran_sans_fanum"
+                                android:hint="نام کاربری"
+                                android:inputType="textPersonName"
+                                android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputEmail"
+                            style="@style/parent"
+                            android:layout_marginTop="@dimen/loginViewsMargin">
+
+                            <EditText
+                                android:id="@+id/editTextEmail"
+                                style="@style/modifiedEditText"
+                                android:fontFamily="@font/iran_sans_fanum"
+                                android:hint="ایمیل"
+                                android:inputType="textEmailAddress"
+                                android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputPassword"
+                            style="@style/parent"
+                            android:layout_marginTop="@dimen/loginViewsMargin">
+
+                            <EditText
+                                android:id="@+id/editTextPassword"
+                                style="@style/modifiedEditText"
+                                android:fontFamily="@font/iran_sans_fanum"
+                                android:hint="پسورد"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:textDirection="rtl" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                            android:id="@+id/cirRegisterButton"
+                            style="@style/loginButton"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/loginViewsMargin"
+                            android:fontFamily="@font/iran_sans_fanum"
+                            android:text="ثبت نام"
+                            app:initialCornerAngle="27dp"
+                            app:spinning_bar_color="#FFF"
+                            app:spinning_bar_padding="6dp"
+                            app:spinning_bar_width="4dp" />
+
+                        <TextView
+                            android:id="@+id/gotoLogin"
+                            style="@style/parent"
+                            android:layout_marginTop="@dimen/loginViewsMargin"
+                            android:fontFamily="@font/iran_sans_fanum"
+                            android:text="قبلا عضو شده اید؟"
+                            android:textAlignment="center"
+                            android:textColor="@color/themeColor"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:weightSum="12">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@color/whiteTextColor" />
+
+                    <TextView
+                        style="@style/viewParent.headerText.NoMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="6"
+                        android:fontFamily="@font/iran_sans_fanum"
+                        android:gravity="center"
+                        android:text="راه های دیگه برای ورود"
+                        android:textAlignment="center"
+                        android:textColor="@color/whiteTextColor"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@color/whiteTextColor" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/gmail" />
 
             </LinearLayout>
+        </ScrollView>
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/gmail" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <ImageView
-        android:id="@+id/image_gotoLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:adjustViewBounds="false"
-        android:src="@drawable/ic_back_img" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/image_gotoLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:adjustViewBounds="false"
+            android:src="@drawable/ic_back_img" />
+    </RelativeLayout>
+</layout>

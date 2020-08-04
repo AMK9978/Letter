@@ -9,13 +9,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.fidea.letter.MainActivity
 import com.fidea.letter.R
-import com.fidea.letter.Util
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
+import com.fidea.letter.databinding.LoginFragmentBinding
 import com.fidea.letter.models.Token
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -32,6 +34,7 @@ import retrofit2.Response
 class LoginFragment : Fragment() {
     private val RC_SIGN_IN: Int = 105
     private var loginViewModel: LoginViewModel? = null
+    private lateinit var binding: LoginFragmentBinding
 
     companion object {
         fun newInstance() = LoginFragment()
@@ -41,31 +44,30 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         //for changing status bar icon colors
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        val view = inflater.inflate(R.layout.login_fragment, container, false)
-        view.gotoRegister.setOnClickListener {
-            onSignUpClick()
-        }
-        view.image_gotoRegister.setOnClickListener {
-            onSignUpClick()
-        }
+        binding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false)
+        binding.root.gotoRegister.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_signUpFragment)
+        )
+        binding.root.image_gotoRegister.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_signUpFragment)
+        )
 
-        view.cirLoginButton.setOnClickListener {
+        binding.root.cirLoginButton.setOnClickListener {
             if (checkFields()) {
                 login()
             }
         }
 
-        view.gmail.setOnClickListener {
+        binding.root.gmail.setOnClickListener {
             loginWithGmail()
         }
 
 
-        return view
+        return binding.root
     }
 
     private fun loginWithGmail() {
@@ -79,7 +81,7 @@ class LoginFragment : Fragment() {
                 .requestEmail()
                 .build()
         // Build a GoogleSignInClient with the options specified by gso.
-        val mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -100,8 +102,8 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         val apiInterface: APIInterface = context?.let {
-                APIClient.getRetrofit()
-            }!!.create(APIInterface::class.java)
+            APIClient.getRetrofit()
+        }!!.create(APIInterface::class.java)
         apiInterface.login(editTextEmail.text.toString(), editTextPassword.text.toString())
             ?.enqueue(object : Callback<Token> {
                 override fun onResponse(
@@ -133,9 +135,10 @@ class LoginFragment : Fragment() {
 
     @SuppressLint("ApplySharedPref")
     private fun storeToken(token: Token) {
-        context!!.getSharedPreferences("pref", MODE_PRIVATE).edit().putString("token", token.access)
+        requireContext().getSharedPreferences("pref", MODE_PRIVATE).edit()
+            .putString("token", token.access)
             .commit()
-        context!!.getSharedPreferences("pref", MODE_PRIVATE).edit()
+        requireContext().getSharedPreferences("pref", MODE_PRIVATE).edit()
             .putString("refresh", token.refresh).commit()
     }
 
@@ -167,11 +170,5 @@ class LoginFragment : Fragment() {
         } catch (e: ApiException) {
             Log.i("TAG", "ERROR IN SIGN IN WITH GOOGLE")
         }
-    }
-
-    private fun onSignUpClick() {
-        activity!!.supportFragmentManager.beginTransaction()
-            .replace(R.id.container, SignUpFragment.newInstance())
-            .commitNow()
     }
 }

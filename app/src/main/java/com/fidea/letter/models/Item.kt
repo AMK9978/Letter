@@ -2,7 +2,7 @@ package com.fidea.letter.models
 
 import java.io.Serializable
 
-class Item(
+data class Item(
     var id: Int, var title: String, var description: String, var imageUrl: String,
     var imagePath: String, var rating: Double, var year: Int, var announce: String,
     var summary: String, var votes: Int

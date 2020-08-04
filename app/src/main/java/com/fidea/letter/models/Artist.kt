@@ -1,5 +1,3 @@
 package com.fidea.letter.models
 
-class Artist {
-    var name: String = ""
-}
+data class Artist(val name: String)

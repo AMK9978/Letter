@@ -32,13 +32,6 @@ class AuthActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        if (savedInstanceState == null) {
-
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, LoginFragment.newInstance())
-                .commitNow()
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(

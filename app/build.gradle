@@ -43,6 +43,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+
     // Optional -- Robolectric environment
     testImplementation 'androidx.test:core:1.0.0'
     // Optional -- Mockito framework

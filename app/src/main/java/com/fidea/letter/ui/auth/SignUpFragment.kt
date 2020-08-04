@@ -15,8 +15,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.PermissionChecker
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.fidea.letter.MainActivity
@@ -24,6 +26,7 @@ import com.fidea.letter.R
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.api.Temp
+import com.fidea.letter.databinding.SignUpFragmentBinding
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 import kotlinx.android.synthetic.main.sign_up_fragment.view.*
@@ -43,6 +46,7 @@ class SignUpFragment : Fragment() {
     private var body: MultipartBody.Part? = null
     private val galleryReqCode = 100
     private val permissionCode = 101
+    private lateinit var binding: SignUpFragmentBinding
 
     companion object {
         fun newInstance() = SignUpFragment()
@@ -61,30 +65,30 @@ class SignUpFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        val view = inflater.inflate(R.layout.sign_up_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.sign_up_fragment, container, false)
         dialog = SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
-        view.image_gotoLogin.setOnClickListener {
-            onLoginClick()
+        binding.root.image_gotoLogin.setOnClickListener {
+            findNavController().popBackStack()
         }
-        view.gotoLogin.setOnClickListener {
-            onLoginClick()
+        binding.root.gotoLogin.setOnClickListener {
+            findNavController().popBackStack()
         }
 
-        view.cirRegisterButton.setOnClickListener {
+        binding.root.cirRegisterButton.setOnClickListener {
             signUp()
         }
 
-        view.profile_image.setOnClickListener {
+        binding.root.profile_image.setOnClickListener {
             performAvatarClick()
         }
 
-        return view
+        return binding.root
     }
 
     private fun performAvatarClick() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (PermissionChecker.checkSelfPermission(
-                    context!!,
+                    requireContext(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) != PermissionChecker.PERMISSION_GRANTED
             ) {
@@ -135,7 +139,7 @@ class SignUpFragment : Fragment() {
             return null
         }
         val string = resultUri.let {
-            context!!.contentResolver.openInputStream(it).use { it!!.reader().readText() }
+            requireContext().contentResolver.openInputStream(it).use { it!!.reader().readText() }
         }
 
         Log.i("TAG", string)
@@ -178,7 +182,7 @@ class SignUpFragment : Fragment() {
         options.setActiveWidgetColor(resources.getColor(R.color.colorPrimary))
         UCrop.of(picUri, Uri.fromFile(myPathFile)).withOptions(options)
             .withAspectRatio(1f, 1f)
-            .start(context!!, this)
+            .start(requireContext(), this)
     }
 
     private fun checkFields(): Boolean {
@@ -277,35 +281,28 @@ class SignUpFragment : Fragment() {
     }
 
 
-    private fun onLoginClick() {
-        activity!!.supportFragmentManager.beginTransaction()
-            .replace(R.id.container, LoginFragment.newInstance())
-            .commitNow()
-    }
-
-
     private fun getWaitingDialog() {
-        if (activity!!.isFinishing) return
+        if (requireActivity().isFinishing) return
         if (dialog.isShowing) dialog.dismiss()
         dialog = SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
         dialog.setTitle(resources.getString(R.string.wait))
-        if (!activity!!.isFinishing) dialog.show()
+        if (!requireActivity().isFinishing) dialog.show()
         dialog.confirmText = resources.getString(R.string.ok)
         dialog.setConfirmClickListener { dialog.dismiss() }
     }
 
     private fun gotoAfter() {
-        activity!!.supportFragmentManager.beginTransaction()
+        requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.container, AfterSignupFragment.newInstance())
             .commitNow()
     }
 
     private fun getErrorEmailDialog() {
-        if (activity!!.isFinishing) return
+        if (requireActivity().isFinishing) return
         if (dialog.isShowing) dialog.dismiss()
         dialog = SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
         dialog.contentText = resources.getString(R.string.sign_up_error)
-        if (!activity!!.isFinishing)
+        if (!requireActivity().isFinishing)
             dialog.show()
         dialog.confirmText = resources.getString(R.string.ok)
         dialog.setConfirmClickListener { dialog.dismiss() }
