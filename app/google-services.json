@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1234",
+    "firebase_url": "https://my-project-1526962338723.firebaseio.com",
+    "project_id": "my-project-1234",
+    "storage_bucket": "my-project-1234.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129756726768:android:1234",
+        "android_client_info": {
+          "package_name": "com.fidea.letter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1234-abcd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "acbcd-abcd"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1234-abcd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
