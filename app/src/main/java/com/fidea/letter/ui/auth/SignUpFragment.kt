@@ -18,6 +18,7 @@ import androidx.core.content.PermissionChecker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
@@ -68,10 +69,10 @@ class SignUpFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.sign_up_fragment, container, false)
         dialog = SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
         binding.root.image_gotoLogin.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }
         binding.root.gotoLogin.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }
 
         binding.root.cirRegisterButton.setOnClickListener {

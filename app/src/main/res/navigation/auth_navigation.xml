@@ -11,12 +11,12 @@
         android:label="LoginFragment"
         tools:layout="@layout/login_fragment">
         <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            android:id="@+id/action_loginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -24,19 +24,21 @@
         android:label="SignUpFragment"
         tools:layout="@layout/sign_up_fragment">
         <action
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             android:id="@+id/action_signUpFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
+            app:destination="@id/loginFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
             android:id="@+id/action_signUpFragment_to_afterSignupFragment"
-            app:destination="@id/afterSignupFragment" />
+            app:destination="@id/afterSignupFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/afterSignupFragment"
