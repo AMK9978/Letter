@@ -20,7 +20,7 @@ import com.fidea.letter.models.Item
 import com.github.ybq.android.spinkit.SpinKitView
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
-import kotlinx.android.synthetic.main.main_fragment.view.*
+import kotlinx.android.synthetic.main.home_fragment.view.*
 import java.io.File
 
 class SearchFragment : Fragment() {
@@ -42,7 +42,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.main_fragment, container, false)
+        val view = inflater.inflate(R.layout.home_fragment, container, false)
         contentRecycler = view.contentRecycler
         spin = view.spin_kit
         itemsViewModel = ItemsViewModel(getToken(), getCacheDir())
