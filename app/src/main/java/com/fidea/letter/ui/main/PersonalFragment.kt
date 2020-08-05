@@ -82,7 +82,7 @@ class PersonalFragment : Fragment() {
     private fun getProfile() {
 
         val apiInterface: APIInterface =
-            APIClient.getRetrofit(Util.getToken(context!!), Util.getCacheDir(context!!))!!
+            APIClient.getRetrofit(Util.getToken(requireContext()), Util.getCacheDir(requireContext()))!!
                 .create(APIInterface::class.java)
         apiInterface.getProfile()?.enqueue(object : Callback<User?> {
             override fun onFailure(call: Call<User?>, t: Throwable) {
@@ -101,7 +101,7 @@ class PersonalFragment : Fragment() {
         if (imagePath == null) {
             return
         }
-        Glide.with(context!!)
+        Glide.with(requireContext())
             .load(imagePath).placeholder(R.drawable.placeholder).into(app_bar_image)
     }
 
@@ -126,7 +126,7 @@ class PersonalFragment : Fragment() {
     private fun performAvatarClick() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(
-                    context!!,
+                    requireContext(),
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PermissionChecker.PERMISSION_GRANTED
             ) {
@@ -161,9 +161,9 @@ class PersonalFragment : Fragment() {
     private fun setOnAlarmManager() {
         val alarmIntent: PendingIntent
         val alarmMgr: AlarmManager? =
-            getSystemService(context!!, Context.ALARM_SERVICE.javaClass) as AlarmManager?
+            getSystemService(requireContext(), Context.ALARM_SERVICE.javaClass) as AlarmManager?
         val intent = Intent(context, BroadcastReceiver::class.java)
-        alarmIntent = PendingIntent.getBroadcast(context!!, 0, intent, 0)
+        alarmIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar[Calendar.HOUR_OF_DAY] = 0
@@ -178,7 +178,7 @@ class PersonalFragment : Fragment() {
      * Share option in drawer
      */
     private fun share() {
-        ShareCompat.IntentBuilder.from(activity!!).setType("text/plain")
+        ShareCompat.IntentBuilder.from(requireActivity()).setType("text/plain")
             .setChooserTitle("اشتراک گذاری نامه")
             .setText("https://letter4u.com").startChooser()
     }
@@ -281,7 +281,7 @@ class PersonalFragment : Fragment() {
             ) { //permission from popup granted
                 pickImageFromGallery()
             } else { //permission from popup denied
-                Toast.makeText(context!!, "دسترسی الزامی است!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "دسترسی الزامی است!", Toast.LENGTH_LONG).show()
             }
         }
     }

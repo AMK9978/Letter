@@ -32,7 +32,7 @@ class AfterSignupFragment : Fragment() {
 
 
     private fun onLoginClick() {
-        activity!!.supportFragmentManager.beginTransaction()
+        requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.container, LoginFragment.newInstance())
             .commitNow()
     }

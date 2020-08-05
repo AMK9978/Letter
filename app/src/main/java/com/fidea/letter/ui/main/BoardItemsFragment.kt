@@ -48,7 +48,7 @@ class BoardItemsFragment : Fragment() {
         itemsViewModel = ItemsViewModel(getToken(), getCacheDir())
         adapter =
             ItemsAdapter(
-                context!!,
+                requireContext(),
                 arrayList
             )
         contentRecycler.adapter = adapter
@@ -99,12 +99,12 @@ class BoardItemsFragment : Fragment() {
     }
 
     private fun getToken(): String {
-        return context!!.getSharedPreferences("pref", Context.MODE_PRIVATE)
+        return requireContext().getSharedPreferences("pref", Context.MODE_PRIVATE)
             .getString("token", "").toString()
     }
 
     private fun getCacheDir(): File {
-        return context!!.cacheDir
+        return requireContext().cacheDir
     }
 
     @SuppressLint("CheckResult")

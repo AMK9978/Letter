@@ -1,13 +1,12 @@
 package com.fidea.letter.ui.auth
 
-import kotlinx.android.synthetic.main.login_fragment.*
-import org.junit.Assert.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class LoginFragmentTest{
+class LoginFragmentTest {
 
     @Test
-    fun checkFieldsTest() : Boolean{
+    fun checkFieldsTest(): Boolean {
         return assertTrue()
     }
 

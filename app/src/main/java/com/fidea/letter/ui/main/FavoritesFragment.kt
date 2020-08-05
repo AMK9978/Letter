@@ -35,12 +35,12 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun getToken(): String {
-        return context!!.getSharedPreferences("pref", Context.MODE_PRIVATE)
+        return requireContext().getSharedPreferences("pref", Context.MODE_PRIVATE)
             .getString("token", "").toString()
     }
 
     private fun getCacheDir(): File {
-        return context!!.cacheDir
+        return requireContext().cacheDir
     }
 
     @SuppressLint("CheckResult")
@@ -49,7 +49,7 @@ class FavoritesFragment : Fragment() {
             if (adapter == null) {
                 adapter =
                     ItemsAdapter(
-                        context!!,
+                        requireContext(),
                         items
                     )
                 favoritesRecycler.adapter = adapter

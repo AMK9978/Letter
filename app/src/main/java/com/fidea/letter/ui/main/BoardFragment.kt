@@ -37,7 +37,7 @@ class BoardFragment : Fragment() {
     }
 
     private fun initBoards() {
-        boardViewModel = BoardViewModel(getToken(context!!), getCacheDir(context!!))
+        boardViewModel = BoardViewModel(getToken(requireContext()), getCacheDir(requireContext()))
         val dramma = Board()
         dramma.imagePath = "https://literatelai.files.wordpress.com/2012/05/666px-p_culture_violet.png"
         dramma.title =  "درام"
@@ -55,11 +55,11 @@ class BoardFragment : Fragment() {
         arrayList.add(crime)
         adapter =
             BoardsAdapter(
-                context!!,
+                requireContext(),
                 arrayList
             )
         boards.adapter = adapter
-        boards.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+        boards.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
     }
 

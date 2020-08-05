@@ -1,7 +1,9 @@
 package com.fidea.letter.models
 
+import androidx.annotation.Keep
 import java.io.Serializable
 
+@Keep
 data class Item(
     var id: Int, var title: String, var description: String, var imageUrl: String,
     var imagePath: String, var rating: Double, var year: Int, var announce: String,

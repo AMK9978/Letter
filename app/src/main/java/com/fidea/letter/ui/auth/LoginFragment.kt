@@ -50,10 +50,10 @@ class LoginFragment : Fragment() {
         }
         binding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false)
         binding.root.gotoRegister.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_signUpFragment)
+            Navigation.createNavigateOnClickListener(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
         )
         binding.root.image_gotoRegister.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_signUpFragment)
+            Navigation.createNavigateOnClickListener(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
         )
 
         binding.root.cirLoginButton.setOnClickListener {
