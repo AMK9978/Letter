@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.main
+package com.fidea.letter.ui.main.favorites
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,17 +11,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fidea.letter.ItemActivity
+import com.fidea.letter.ui.main.item.ItemActivity
 import com.fidea.letter.R
 import com.fidea.letter.adapters.ItemsAdapter
-import com.fidea.letter.models.Item
+import com.fidea.letter.ui.main.home.HomeViewModel
 import kotlinx.android.synthetic.main.favorites_fragment.*
 import java.io.File
 
 class FavoritesFragment : Fragment() {
 
     private var adapter: ItemsAdapter? = null
-    private lateinit var itemsViewModel: ItemsViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
 
     override fun onCreateView(
@@ -29,7 +29,10 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.favorites_fragment, container, false)
-        itemsViewModel = ItemsViewModel(getToken(), getCacheDir())
+        homeViewModel = HomeViewModel(
+            getToken(),
+            getCacheDir()
+        )
         initRecycler()
         return view
     }
@@ -45,7 +48,7 @@ class FavoritesFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun initRecycler() {
-        itemsViewModel.favorites.observe(viewLifecycleOwner, Observer { items ->
+        homeViewModel.favorites.observe(viewLifecycleOwner, Observer { items ->
             if (adapter == null) {
                 adapter =
                     ItemsAdapter(

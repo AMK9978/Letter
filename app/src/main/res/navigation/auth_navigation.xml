@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.fidea.letter.ui.auth.LoginFragment"
+        android:name="com.fidea.letter.ui.auth.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/login_fragment">
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.fidea.letter.ui.auth.SignUpFragment"
+        android:name="com.fidea.letter.ui.auth.signup.SignUpFragment"
         android:label="SignUpFragment"
         tools:layout="@layout/sign_up_fragment">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/afterSignupFragment"
-        android:name="com.fidea.letter.ui.auth.AfterSignupFragment"
+        android:name="com.fidea.letter.ui.auth.after_signup.AfterSignupFragment"
         android:label="AfterSignupFragment"
         tools:layout="@layout/after_sign_up_fragment" />
 </navigation>

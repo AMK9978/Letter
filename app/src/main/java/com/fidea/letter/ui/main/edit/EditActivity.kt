@@ -1,12 +1,13 @@
-package com.fidea.letter
+package com.fidea.letter.ui.main.edit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fidea.letter.R
 
-class AboutActivity : AppCompatActivity() {
+class EditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
+        setContentView(R.layout.activity_edit)
     }
 }

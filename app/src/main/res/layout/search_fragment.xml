@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layoutDirection="rtl"
-    tools:context=".ui.main.HomeFragment">
+    tools:context=".ui.main.home.HomeFragment">
 
 
     <androidx.appcompat.widget.Toolbar

@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.main
+package com.fidea.letter.ui.main.boards
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fidea.letter.R
-import com.fidea.letter.RxBus
-import com.fidea.letter.Util.Companion.getCacheDir
-import com.fidea.letter.Util.Companion.getToken
+import com.fidea.letter.util.RxBus
+import com.fidea.letter.util.Util.Companion.getCacheDir
+import com.fidea.letter.util.Util.Companion.getToken
 import com.fidea.letter.adapters.BoardsAdapter
 import com.fidea.letter.models.Board
 import io.reactivex.disposables.Disposable
@@ -37,7 +36,10 @@ class BoardFragment : Fragment() {
     }
 
     private fun initBoards() {
-        boardViewModel = BoardViewModel(getToken(requireContext()), getCacheDir(requireContext()))
+        boardViewModel = BoardViewModel(
+            getToken(requireContext()),
+            getCacheDir(requireContext())
+        )
         val dramma = Board()
         dramma.imagePath = "https://literatelai.files.wordpress.com/2012/05/666px-p_culture_violet.png"
         dramma.title =  "درام"

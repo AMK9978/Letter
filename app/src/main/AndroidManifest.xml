@@ -32,9 +32,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditActivity"></activity>
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".MessagesActivity" />
+        <activity android:name=".ui.main.edit.EditActivity"></activity>
+        <activity android:name=".ui.main.about.AboutActivity" />
+        <activity android:name=".ui.main.inbox.MessagesActivity" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -67,7 +67,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ItemActivity" />
+        <activity android:name=".ui.main.item.ItemActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

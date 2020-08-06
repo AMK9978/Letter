@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.main
+package com.fidea.letter.ui.main.boards
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData

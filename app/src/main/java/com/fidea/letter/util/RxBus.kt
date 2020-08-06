@@ -1,4 +1,4 @@
-package com.fidea.letter
+package com.fidea.letter.util
 
 import com.fidea.letter.models.Board
 import com.fidea.letter.models.Item

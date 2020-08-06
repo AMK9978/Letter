@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.fidea.letter.databinding.MainActivityBinding
-import com.fidea.letter.ui.main.BoardFragment
-import com.fidea.letter.ui.main.FavoritesFragment
-import com.fidea.letter.ui.main.HomeFragment
-import com.fidea.letter.ui.main.PersonalFragment
+import com.fidea.letter.ui.main.boards.BoardFragment
+import com.fidea.letter.ui.main.favorites.FavoritesFragment
+import com.fidea.letter.ui.main.home.HomeFragment
+import com.fidea.letter.ui.main.personal.PersonalFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 
@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(fragment)
                 }
                 R.id.library -> {
-                    fragment = FavoritesFragment()
+                    fragment =
+                        FavoritesFragment()
                     supportFragmentManager.popBackStack()
                     loadFragment(fragment)
                 }
@@ -45,7 +46,8 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(fragment)
                 }
                 R.id.personal -> {
-                    fragment = PersonalFragment()
+                    fragment =
+                        PersonalFragment()
                     supportFragmentManager.popBackStack()
                     loadFragment(fragment)
                 }

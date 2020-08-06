@@ -11,7 +11,7 @@
         android:background="@color/register_bk_color"
         android:focusableInTouchMode="true"
         android:gravity="center"
-        tools:context=".ui.auth.SignUpFragment">
+        tools:context=".ui.auth.signup.SignUpFragment">
 
         <ScrollView
             android:layout_width="match_parent"

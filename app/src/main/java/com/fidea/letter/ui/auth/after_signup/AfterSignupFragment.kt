@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.auth
+package com.fidea.letter.ui.auth.after_signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.fidea.letter.R
+import com.fidea.letter.ui.auth.login.LoginFragment
 import kotlinx.android.synthetic.main.after_sign_up_fragment.view.*
 
 
@@ -13,7 +14,8 @@ class AfterSignupFragment : Fragment() {
 
 
     companion object {
-        fun newInstance() = AfterSignupFragment()
+        fun newInstance() =
+            AfterSignupFragment()
     }
 
     override fun onCreateView(

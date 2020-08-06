@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.auth
+package com.fidea.letter.ui.auth.login
 
 import android.annotation.SuppressLint
 import android.content.Context.MODE_PRIVATE
@@ -19,6 +19,7 @@ import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.databinding.LoginFragmentBinding
 import com.fidea.letter.models.Token
+import com.fidea.letter.ui.auth.LoginFragmentDirections
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

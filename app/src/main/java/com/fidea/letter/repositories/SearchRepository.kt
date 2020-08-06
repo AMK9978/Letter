@@ -2,7 +2,7 @@ package com.fidea.letter.repositories
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.fidea.letter.RxBus
+import com.fidea.letter.util.RxBus
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.Item

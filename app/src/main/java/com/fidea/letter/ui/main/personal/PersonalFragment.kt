@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.main
+package com.fidea.letter.ui.main.personal
 
 import android.Manifest
 import android.app.Activity
@@ -27,6 +27,10 @@ import com.fidea.letter.*
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.models.User
+import com.fidea.letter.ui.main.about.AboutActivity
+import com.fidea.letter.ui.main.edit.EditActivity
+import com.fidea.letter.ui.main.inbox.MessagesActivity
+import com.fidea.letter.util.Util
 import kotlinx.android.synthetic.main.activity_item.*
 import kotlinx.android.synthetic.main.personal_fragment.*
 import kotlinx.android.synthetic.main.personal_fragment.view.*

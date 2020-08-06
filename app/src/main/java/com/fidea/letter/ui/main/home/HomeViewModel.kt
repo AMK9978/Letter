@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.main
+package com.fidea.letter.ui.main.home
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import com.fidea.letter.repositories.ItemRepository
 import java.io.File
 import javax.inject.Inject
 
-class ItemsViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val token: String?,
     private val cacheDir: File
 ) : ViewModel(), LifecycleObserver {

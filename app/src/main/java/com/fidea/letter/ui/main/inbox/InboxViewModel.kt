@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.main
+package com.fidea.letter.ui.main.inbox
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

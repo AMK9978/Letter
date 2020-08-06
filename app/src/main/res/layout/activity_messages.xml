@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    tools:context=".MessagesActivity">
+    tools:context=".ui.main.inbox.MessagesActivity">
 
 
     <androidx.appcompat.widget.Toolbar

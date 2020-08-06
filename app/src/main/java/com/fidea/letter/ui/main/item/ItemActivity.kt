@@ -1,4 +1,4 @@
-package com.fidea.letter
+package com.fidea.letter.ui.main.item
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
+import com.fidea.letter.R
+import com.fidea.letter.util.Util
 import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.databinding.ActivityItemBinding
@@ -16,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class ItemActivity : AppCompatActivity() {
@@ -27,7 +28,9 @@ class ItemActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_item)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_item
+        )
 
         if (intent.extras != null && intent.extras?.get("item") != null) {
             item = intent.extras?.get("item") as Item
@@ -53,7 +56,10 @@ class ItemActivity : AppCompatActivity() {
     private fun like() {
         val view = findViewById<View>(android.R.id.content)
         val apiInterface: APIInterface =
-            APIClient.getRetrofit(Util.getToken(this), Util.getCacheDir(this))!!
+            APIClient.getRetrofit(
+                Util.getToken(this),
+                Util.getCacheDir(this)
+            )!!
                 .create(APIInterface::class.java)
         apiInterface.like(item.id)?.enqueue(object : Callback<String?> {
             override fun onResponse(
@@ -85,7 +91,10 @@ class ItemActivity : AppCompatActivity() {
 
     private fun seen() {
         val apiInterface: APIInterface =
-            APIClient.getRetrofit(Util.getToken(this), Util.getCacheDir(this))!!
+            APIClient.getRetrofit(
+                Util.getToken(this),
+                Util.getCacheDir(this)
+            )!!
                 .create(APIInterface::class.java)
         apiInterface.setAsSeen(item.id)?.enqueue(object : Callback<String?> {
             override fun onResponse(

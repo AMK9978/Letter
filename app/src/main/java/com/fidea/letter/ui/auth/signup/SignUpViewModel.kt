@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.auth
+package com.fidea.letter.ui.auth.signup
 
 import androidx.lifecycle.ViewModel
 

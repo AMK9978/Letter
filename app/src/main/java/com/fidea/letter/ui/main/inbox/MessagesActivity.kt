@@ -1,8 +1,9 @@
-package com.fidea.letter
+package com.fidea.letter.ui.main.inbox
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
+import com.fidea.letter.R
 
 class MessagesActivity : AppCompatActivity() {
 

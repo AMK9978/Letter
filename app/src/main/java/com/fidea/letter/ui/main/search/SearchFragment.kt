@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.main
+package com.fidea.letter.ui.main.search
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,11 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fidea.letter.ItemActivity
+import com.fidea.letter.ui.main.item.ItemActivity
 import com.fidea.letter.R
-import com.fidea.letter.RxBus
+import com.fidea.letter.util.RxBus
 import com.fidea.letter.adapters.ItemsAdapter
 import com.fidea.letter.models.Item
+import com.fidea.letter.ui.main.home.HomeViewModel
 import com.github.ybq.android.spinkit.SpinKitView
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -29,7 +30,7 @@ class SearchFragment : Fragment() {
     private lateinit var contentRecycler: RecyclerView
     private lateinit var spin: SpinKitView
     private var adapter: ItemsAdapter? = null
-    private lateinit var itemsViewModel: ItemsViewModel
+    private lateinit var homeViewModel: HomeViewModel
     private var arrayList = arrayListOf<Item>()
     private lateinit var disposable: Disposable
 
@@ -45,7 +46,10 @@ class SearchFragment : Fragment() {
         val view = inflater.inflate(R.layout.home_fragment, container, false)
         contentRecycler = view.contentRecycler
         spin = view.spin_kit
-        itemsViewModel = ItemsViewModel(getToken(), getCacheDir())
+        homeViewModel = HomeViewModel(
+            getToken(),
+            getCacheDir()
+        )
         adapter =
             ItemsAdapter(
                 requireContext(),
@@ -63,7 +67,7 @@ class SearchFragment : Fragment() {
                         Log.i("TAG", "And now")
                         spin.visibility = View.VISIBLE
                         loading = false
-                        itemsViewModel.getNewItems()
+                        homeViewModel.getNewItems()
                     }
                 }
             }
@@ -82,7 +86,7 @@ class SearchFragment : Fragment() {
             override fun onNext(t: ArrayList<Item>) {
                 adapter?.itemsList!!.addAll(t)
                 adapter?.notifyDataSetChanged()
-                itemsViewModel.items.value?.addAll(t)
+                homeViewModel.items.value?.addAll(t)
                 loading = true
                 spin.visibility = View.GONE
             }
@@ -109,8 +113,8 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun initRecycler() {
-        lifecycle.addObserver(itemsViewModel)
-        itemsViewModel.items.observe(viewLifecycleOwner, Observer { items ->
+        lifecycle.addObserver(homeViewModel)
+        homeViewModel.items.observe(viewLifecycleOwner, Observer { items ->
             // update UI
             Log.i("TAG", "EVER?$items")
             adapter?.itemsList!!.addAll(items)

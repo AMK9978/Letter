@@ -1,8 +1,9 @@
-package com.fidea.letter
+package com.fidea.letter.util
 
 import android.app.Activity
 import android.content.Context
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.fidea.letter.R
 import java.io.File
 
 class Util {

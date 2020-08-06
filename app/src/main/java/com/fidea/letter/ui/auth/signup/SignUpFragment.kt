@@ -1,4 +1,4 @@
-package com.fidea.letter.ui.auth
+package com.fidea.letter.ui.auth.signup
 
 import android.Manifest
 import android.app.Activity
@@ -18,7 +18,6 @@ import androidx.core.content.PermissionChecker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
@@ -28,6 +27,8 @@ import com.fidea.letter.api.APIClient
 import com.fidea.letter.api.APIInterface
 import com.fidea.letter.api.Temp
 import com.fidea.letter.databinding.SignUpFragmentBinding
+import com.fidea.letter.ui.auth.after_signup.AfterSignupFragment
+import com.fidea.letter.ui.auth.login.LoginViewModel
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.sign_up_fragment.*
 import kotlinx.android.synthetic.main.sign_up_fragment.view.*
@@ -294,7 +295,9 @@ class SignUpFragment : Fragment() {
 
     private fun gotoAfter() {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, AfterSignupFragment.newInstance())
+            .replace(R.id.container,
+                AfterSignupFragment.newInstance()
+            )
             .commitNow()
     }
 

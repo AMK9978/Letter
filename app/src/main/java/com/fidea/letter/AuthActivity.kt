@@ -11,7 +11,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
-import com.fidea.letter.ui.auth.LoginFragment
 import java.io.File
 
 

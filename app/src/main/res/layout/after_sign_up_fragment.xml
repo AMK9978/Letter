@@ -7,7 +7,7 @@
     android:background="@color/register_bk_color"
     android:focusableInTouchMode="true"
     android:layoutDirection="ltr"
-    tools:context=".ui.auth.SignUpFragment">
+    tools:context=".ui.auth.signup.SignUpFragment">
 
 
         <LinearLayout
