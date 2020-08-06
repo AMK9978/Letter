@@ -157,27 +157,6 @@ class PersonalFragment : Fragment() {
         startActivityForResult(intent, galleryReqCode)
     }
 
-
-    /**
-     * Specify interval for Pull notification system which is using Alarm manager and
-     * BroadcastReceiver
-     */
-    private fun setOnAlarmManager() {
-        val alarmIntent: PendingIntent
-        val alarmMgr: AlarmManager? =
-            getSystemService(requireContext(), Context.ALARM_SERVICE.javaClass) as AlarmManager?
-        val intent = Intent(context, BroadcastReceiver::class.java)
-        alarmIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar[Calendar.HOUR_OF_DAY] = 0
-        calendar[Calendar.MINUTE] = 0
-        alarmMgr?.setRepeating(
-            AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
-            INTERVAL, alarmIntent
-        )
-    }
-
     /**
      * Share option in drawer
      */
