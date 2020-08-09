@@ -2,10 +2,10 @@
 A letter for your bored moments to make you happy :)
 Android side via Kotlin
 
-## Screenshots
-<img align="center" src="https://gitlab.com/future-ideas/letter/blob/master/Screenshot_2020-06-29-23-37-28-748_com.fidea.letter.jpg?raw=true." alt="Spire the Hare" title="ScreenShot1" width="900px">
+## Screenshot
+<p align="center"><img align="center" src="./Screenshot_2020-06-29-23-37-28-748_com.fidea.letter.jpg?raw=true." alt="Spire the Hare" title="ScreenShot1" width="900px"></p>
 
-## Deployment
+## Get started
 
 ```
 git clone https://gitlab.com/future-ideas/letter.git
@@ -22,7 +22,7 @@ git clone https://gitlab.com/future-ideas/letter.git
 * Increase the version numbers in any examples files and the README.md to the new version that this Pull Request would represent.
 * Your pull request will be checked and merged(If be verified).
 
-## Authors
+## Author
 
 * **Amir Muhammad Karimi** - [AMK9978](https://github.com/amk9978)
 
