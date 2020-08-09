@@ -3,7 +3,7 @@ A letter for your bored moments to make you happy :)
 Android side via Kotlin
 
 ## Screenshots
-<img align="center" src="https://gitlab.com/future-ideas/letter/-/blob/master/Screenshot_2020-06-29-23-37-28-748_com.fidea.letter.jpg" alt="Spire the Hare" title="ScreenShot1" width="900px">
+<img align="center" src="https://gitlab.com/future-ideas/letter/blob/master/Screenshot_2020-06-29-23-37-28-748_com.fidea.letter.jpg?raw=true." alt="Spire the Hare" title="ScreenShot1" width="900px">
 
 ## Deployment
 
