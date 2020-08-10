@@ -11,12 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.fidea.letter.MainActivity
 import com.fidea.letter.R
-import com.fidea.letter.api.APIClient
-import com.fidea.letter.api.APIInterface
 import com.fidea.letter.databinding.LoginFragmentBinding
 import com.fidea.letter.models.Token
 import com.fidea.letter.ui.auth.LoginFragmentDirections
@@ -27,14 +26,11 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.login_fragment.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
     private val RC_SIGN_IN: Int = 105
-    private var loginViewModel: LoginViewModel? = null
+    private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: LoginFragmentBinding
 
     companion object {
@@ -49,6 +45,8 @@ class LoginFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
+
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false)
         binding.root.gotoRegister.setOnClickListener(
             Navigation.createNavigateOnClickListener(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
@@ -59,22 +57,24 @@ class LoginFragment : Fragment() {
 
         binding.root.cirLoginButton.setOnClickListener {
             if (checkFields()) {
-                login()
+                loginViewModel.login(
+                    editTextEmail.text.toString(),
+                    editTextPassword.text.toString()
+                )
             }
         }
 
         binding.root.gmail.setOnClickListener {
-            loginWithGmail()
+            signIn()
         }
+
+        loginViewModel.token.observe(viewLifecycleOwner,
+            Observer { t -> t?.let { storeToken(token = it) } })
 
 
         return binding.root
     }
 
-    private fun loginWithGmail() {
-
-        signIn()
-    }
 
     private fun signIn() {
         val gso =
@@ -88,7 +88,6 @@ class LoginFragment : Fragment() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-
     private fun checkFields(): Boolean {
         if (editTextEmail.text.isEmpty() || editTextPassword.text.isEmpty()) {
             showDialog()
@@ -99,39 +98,6 @@ class LoginFragment : Fragment() {
 
     private fun showDialog() {
 
-    }
-
-    private fun login() {
-        val apiInterface: APIInterface = context?.let {
-            APIClient.getRetrofit()
-        }!!.create(APIInterface::class.java)
-        apiInterface.login(editTextEmail.text.toString(), editTextPassword.text.toString())
-            ?.enqueue(object : Callback<Token> {
-                override fun onResponse(
-                    call: Call<Token>,
-                    response: Response<Token>
-                ) {
-                    if (response.isSuccessful && response.body() != null) {
-                        val token = response.body()!!
-                        storeToken(token)
-                        gotoHome()
-                    } else {
-                        Log.i(
-                            "TAG", "Error in onResponse of Products " + response.code() +
-                                    " " + response.message() + " " + response.errorBody()
-                        )
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<Token>,
-                    t: Throwable
-                ) {
-                    Log.i(
-                        "TAGd", t.message
-                    )
-                }
-            })
     }
 
     @SuppressLint("ApplySharedPref")
@@ -147,13 +113,6 @@ class LoginFragment : Fragment() {
         val intent = Intent(context, MainActivity::class.java)
         startActivity(intent)
         activity?.finish()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -11,10 +11,15 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
+import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.HasSupportFragmentInjector
 import java.io.File
+import javax.inject.Inject
 
 
 class AuthActivity : AppCompatActivity() {
+
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -51,7 +56,7 @@ class AuthActivity : AppCompatActivity() {
         val file = File(Environment.getExternalStorageDirectory(), "letter")
         if (!file.exists()) {
             Log.i("TAG", "Not exists:" + file.mkdirs())
-        }else{
+        } else {
             Log.i("TAG", "exists:" + file.absolutePath)
         }
     }
@@ -63,6 +68,10 @@ class AuthActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         fill()
+    }
+
+    companion object {
+        private const val TAG = "AuthActivity"
     }
 
 }

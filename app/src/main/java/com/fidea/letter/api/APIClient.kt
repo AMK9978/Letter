@@ -1,5 +1,6 @@
 package com.fidea.letter.api
 
+import com.fidea.letter.models.Token
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -28,9 +29,10 @@ class APIClient {
                         .build()
                 }
             }
-        private val retrofit: Retrofit? = null
-        private var cache: Cache? = null
-        private var token: String? = ""
+        private lateinit var retrofit: Retrofit
+        val cacheSize = 5 * 1024 * 1024L
+        private lateinit var cache: Cache
+        private var token: String = ""
         private val client = OkHttpClient.Builder()
             .addInterceptor { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()
@@ -43,28 +45,33 @@ class APIClient {
             .cache(cache).build()
 
 
-        public fun getRetrofit(token: String?, cacheDir: File): Retrofit? {
-            this.token = token
-            if (token == null || retrofit == null) {
-                val gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-                val cacheSize = 5 * 1024 * 1024L
-                cache = Cache(cacheDir, cacheSize)
-                return Retrofit.Builder().client(client)
-                    .addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson)).build()
+        fun getRetrofit(): Retrofit {
+            synchronized(retrofit) {
+                if (token == "" || !this::retrofit.isInitialized) {
+                    val gson = GsonBuilder()
+                        .setLenient()
+                        .create()
+                    return Retrofit.Builder().client(client)
+                        .addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create(gson)).build()
+                }
+                return retrofit
             }
-            return retrofit
         }
 
-        public fun getRetrofit(): Retrofit? {
-            val gson = GsonBuilder()
-                .setLenient()
-                .create()
-            return Retrofit.Builder().client(client)
-                .addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson)).build()
+        fun getRetrofit(token: String?, cacheDirectory: File): Retrofit {
+            synchronized(retrofit) {
+                if (!this::retrofit.isInitialized) {
+                    cache = Cache(cacheDirectory, cacheSize)
+                    val gson = GsonBuilder()
+                        .setLenient()
+                        .create()
+                    return Retrofit.Builder().client(client)
+                        .addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create(gson)).build()
+                }
+                return retrofit
+            }
         }
     }
 }

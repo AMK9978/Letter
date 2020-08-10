@@ -9,18 +9,21 @@ import java.io.File
 class Util {
 
     companion object {
+        private const val SHARED_PREFERENCE_NAME = "PREF_app"
+        private const val TOKEN = "PREF_token"
+        private const val DEFAULT_VALUE = ""
 
 
-        public fun getToken(context: Context): String {
-            return context.getSharedPreferences("pref", Context.MODE_PRIVATE)
-                .getString("token", "").toString()
+        fun getToken(context: Context): String {
+            return context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
+                .getString(TOKEN, DEFAULT_VALUE).toString()
         }
 
-        public fun getCacheDir(context: Context): File {
+        fun getCacheDir(context: Context): File {
             return context.cacheDir
         }
 
-        public fun getErrorDialog(dialog: SweetAlertDialog, activity: Activity) {
+        fun getErrorDialog(dialog: SweetAlertDialog, activity: Activity) {
             if (dialog.isShowing) dialog.dismiss()
             if (activity.isFinishing) return
             val dialog = SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
@@ -31,7 +34,7 @@ class Util {
             dialog.setConfirmClickListener { dialog.dismiss() }
         }
 
-        public fun getWaitingDialog(dialog: SweetAlertDialog, activity: Activity) : SweetAlertDialog? {
+        fun getWaitingDialog(dialog: SweetAlertDialog, activity: Activity): SweetAlertDialog? {
             if (dialog.isShowing) dialog.dismiss()
             if (activity.isFinishing) return null
             val dialog = SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE)
