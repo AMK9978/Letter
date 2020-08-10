@@ -18,7 +18,6 @@ import com.fidea.letter.MainActivity
 import com.fidea.letter.R
 import com.fidea.letter.databinding.LoginFragmentBinding
 import com.fidea.letter.models.Token
-import com.fidea.letter.ui.auth.LoginFragmentDirections
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
