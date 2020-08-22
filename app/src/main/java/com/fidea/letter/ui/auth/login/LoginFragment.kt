@@ -63,9 +63,6 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.root.gmail.setOnClickListener {
-            signIn()
-        }
 
         loginViewModel.token.observe(viewLifecycleOwner,
             Observer { t -> t?.let { storeToken(token = it) } })
