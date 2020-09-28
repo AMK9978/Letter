@@ -1,6 +1,8 @@
 # letter
 A letter for your bored moments to make you happy :)
+
 Android side via Kotlin
+
 you can find it's back-end app here: https://dev.azure.com/amk9978/LetterEngine
 
 ## Screenshot
